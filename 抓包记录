@@ -1,0 +1,299 @@
+salt 37b20db
+sign 597cb3c0ffd6
+/api/user/login?salt=sign=
+
+
+//未登录,启动时
+POST /api/sys/currVersion?salt=4aae0882&sign=b53ccfb2992d07ebef169585c105d1bf HTTP/1.1
+Content-Type: application/json
+X-Re-Os: android
+X-Re-Version: 13
+X-Re-Device: Xiaomi M2101K9C
+Content-Length: 0
+Host: sports.wfust.edu.cn
+Connection: close
+Accept-Encoding: gzip, deflate
+User-Agent: okhttp/4.5.0
+
+POST /api/user/login?salt=4aae0882&sign=b53ccfb2992d07ebef169585c105d1bf HTTP/1.1
+X-Re-Os: android
+X-Re-Version: 13
+X-Re-Device: Xiaomi M2101K9C
+Content-Type: application/json; charset=UTF-8
+Content-Length: 52
+Host: sports.wfust.edu.cn
+Connection: close
+Accept-Encoding: gzip, deflate
+User-Agent: okhttp/4.5.0
+
+{"userCardNo":"这是你的密码","userCode":"这是你的学号"}
+
+
+POST /api/user/login?salt=1199d639&sign=fe9b2888af9d1d75e72ba01dcea5f10b HTTP/1.1
+X-Re-Os: android
+X-Re-Version: 13
+X-Re-Device: Xiaomi M2101K9C
+Content-Type: application/json; charset=UTF-8
+Content-Length: 53
+Host: sports.wfust.edu.cn
+Connection: close
+Accept-Encoding: gzip, deflate
+User-Agent: okhttp/4.5.0
+
+{"userCardNo":"w这是你的密码","userCode":"这是你的学号"}
+
+
+# 检查更新
+发送
+POST /api/sys/currVersion?salt=377cf8c3&sign=efdd24e900f8875f03eac63190602821 HTTP/1.1
+Content-Type: application/json
+X-Re-Os: android
+X-Re-Version: 13
+X-Re-Device: Xiaomi M2101K9C
+Content-Length: 0
+Host: sports.wfust.edu.cn
+Connection: close
+Accept-Encoding: gzip, deflate
+User-Agent: okhttp/4.5.0
+
+接收
+HTTP/1.1 200 
+Date: Wed, 15 Mar 2023 13:03:08 GMT
+Content-Type: application/json
+Connection: close
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Server: Server   
+Content-Length: 144
+
+{"code":"1","msg":"成功","data":{"id":1,"versionCode":"1","fileName":"run.apk","apkUrl":"http://sports.wfust.edu.cn/file/commonfile/run.apk"}}
+
+
+# 登录
+发送
+POST /api/user/login?salt=04557bbb&sign=1c517b1de63185e29e6282812b1efbfd HTTP/1.1
+X-Re-Os: android
+X-Re-Version: 13
+X-Re-Device: Xiaomi M2101K9C
+Content-Type: application/json; charset=UTF-8
+Content-Length: 52
+Host: sports.wfust.edu.cn
+Connection: close
+Accept-Encoding: gzip, deflate
+User-Agent: okhttp/4.5.0
+
+{"userCardNo":"这是你的密码","userCode":"这是你的学号"}
+
+接收
+HTTP/1.1 200 
+Date: Wed, 15 Mar 2023 13:04:14 GMT
+Content-Type: application/json
+Connection: close
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Server: Server   
+Content-Length: 170
+
+{"code":"1","msg":"成功","data":{"id":82388,"userCode":"这是你的学号","userCardNo":null,"userName":"这是你的姓名","userSex":"1","userClass":"这是你的学院","newPwd":null}}
+
+# 有效公里数
+发送
+POST /api/run/getRunLengthKm?salt=0ad60c84&sign=706bde793662202cdc249e7cbfb5adab HTTP/1.1
+X-Re-Os: android
+X-Re-Version: 13
+X-Re-Device: Xiaomi M2101K9C
+Content-Type: application/json; charset=UTF-8
+Content-Length: 25
+Host: sports.wfust.edu.cn
+Connection: close
+Accept-Encoding: gzip, deflate
+User-Agent: okhttp/4.5.0
+
+{"userCode":"这是你的学号"}
+
+接收
+HTTP/1.1 200 
+Date: Wed, 15 Mar 2023 13:04:31 GMT
+Content-Type: application/json
+Connection: close
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Server: Server   
+Content-Length: 38
+
+{"code":"1","msg":"成功","data":0.0}
+
+
+# 跑步次数
+发送
+POST /api/run/getRunCnt?salt=87e0252f&sign=81d6e1940cb3fbf609c635039f6482b2 HTTP/1.1
+X-Re-Os: android
+X-Re-Version: 13
+X-Re-Device: Xiaomi M2101K9C
+Content-Type: application/json; charset=UTF-8
+Content-Length: 25
+Host: sports.wfust.edu.cn
+Connection: close
+Accept-Encoding: gzip, deflate
+User-Agent: okhttp/4.5.0
+
+{"userCode":"这是你的学号"}
+
+接收
+HTTP/1.1 200 
+Date: Wed, 15 Mar 2023 13:04:38 GMT
+Content-Type: application/json
+Connection: close
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Server: Server   
+Content-Length: 36
+
+{"code":"1","msg":"成功","data":0}
+
+# 获取跑步记录
+发送
+POST /api/run/queryRunList?salt=0e619a72&sign=5af76322a3134d823c9eb5cf1672c670 HTTP/1.1
+X-Re-Os: android
+X-Re-Version: 13
+X-Re-Device: Xiaomi M2101K9C
+Content-Type: application/json; charset=UTF-8
+Content-Length: 50
+Host: sports.wfust.edu.cn
+Connection: close
+Accept-Encoding: gzip, deflate
+User-Agent: okhttp/4.5.0
+
+{"pageNo":1,"pageSize":20,"userCode":"这是你的学号"}
+
+# 接收
+HTTP/1.1 200 
+Date: Wed, 15 Mar 2023 13:07:38 GMT
+Content-Type: application/json
+Connection: close
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Server: Server   
+Content-Length: 37
+
+{"code":"1","msg":"成功","data":[]}
+
+# 
+发送
+POST /api/run/checkRunAllow?salt=f3145cd3&sign=077997ad5cc4c83020f1d5a486fbcd9d HTTP/1.1
+X-Re-Os: android
+X-Re-Version: 13
+X-Re-Device: Xiaomi M2101K9C
+Content-Type: application/json; charset=UTF-8
+Content-Length: 25
+Host: sports.wfust.edu.cn
+Connection: close
+Accept-Encoding: gzip, deflate
+User-Agent: okhttp/4.5.0
+
+{"userCode":"这是你的学号"}
+
+
+# 
+发送
+POST /api/semester/getNearestCampus?salt=70d2681f&sign=34a2d7dc0d41dd5e14b34c855053e22e HTTP/1.1
+X-Re-Os: android
+X-Re-Version: 13
+X-Re-Device: Xiaomi M2101K9C
+Content-Type: application/json; charset=UTF-8
+Content-Length: 45
+Host: sports.wfust.edu.cn
+Connection: close
+Accept-Encoding: gzip, deflate
+User-Agent: okhttp/4.5.0
+
+{"pointLat":36.881827,"pointLong":118.781137}
+
+# 
+发送
+POST /api/semester/queryPoint?salt=1ff7310f&sign=6888e55e82d69fb53a1fa717cc670bff HTTP/1.1
+X-Re-Os: android
+X-Re-Version: 13
+X-Re-Device: Xiaomi M2101K9C
+Content-Type: application/json; charset=UTF-8
+Content-Length: 96
+Host: sports.wfust.edu.cn
+Connection: close
+Accept-Encoding: gzip, deflate
+User-Agent: okhttp/4.5.0
+
+{"campus":1,"pointLat":36.885120403182206,"pointLong":118.7740813443591,"userCode":"这是你的学号"}
+
+# 获取4个打卡点
+发送
+POST /api/semester/queryPoint?salt=1ff7310f&sign=6888e55e82d69fb53a1fa717cc670bff HTTP/1.1
+X-Re-Os: android
+X-Re-Version: 13
+X-Re-Device: Xiaomi M2101K9C
+Content-Type: application/json; charset=UTF-8
+Content-Length: 96
+Host: sports.wfust.edu.cn
+Connection: close
+Accept-Encoding: gzip, deflate
+User-Agent: okhttp/4.5.0
+
+{"campus":1,"pointLat":36.885120403182206,"pointLong":118.7740813443591,"userCode":"这是你的学号"}
+
+接收
+HTTP/1.1 200 
+Date: Wed, 15 Mar 2023 13:10:57 GMT
+Content-Type: application/json
+Connection: close
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Server: Server   
+Content-Length: 524
+
+{"code":"1","msg":"成功","data":[{"id":13,"campus":1,"stadiumId":2,"type":1,"pointLong":"118.773904","pointLat":"36.887438","userId":null,"userCode":null},{"id":15,"campus":1,"stadiumId":2,"type":1,"pointLong":"118.773469","pointLat":"36.886672","userId":null,"userCode":null},{"id":19,"campus":1,"stadiumId":2,"type":1,"pointLong":"118.774391","pointLat":"36.886743","userId":null,"userCode":null},{"id":21,"campus":1,"stadiumId":2,"type":2,"pointLong":"118.777157","pointLat":"36.890199","userId":null,"userCode":null}]}
+
+
+# 跑步记录提交
+发送
+POST /api/run/addRunInfo?salt=93ebb064&sign=406c8e4bda4f1a42ed0ae2903a446327 HTTP/1.1
+X-Re-Os: android
+X-Re-Version: 13
+X-Re-Device: Xiaomi M2101K9C
+Content-Type: application/json; charset=UTF-8
+Content-Length: 2630
+Host: sports.wfust.edu.cn
+Connection: close
+Accept-Encoding: gzip, deflate
+User-Agent: okhttp/4.5.0
+
+{"beginTime":"2023-03-15 21:37:04","campus":1,"endTime":"2023-03-15 21:50:11","markList":"[{\"isStartPosition\":true,\"latLng\":{\"latitude\":36.88682639802524,\"longitude\":118.77394232600646}},{\"latLng\":{\"latitude\":36.886106400534864,\"longitude\":118.77414033782222}},{\"latLng\":{\"latitude\":36.88646240069644,\"longitude\":118.77462434897625}},{\"latLng\":{\"latitude\":36.885275404422025,\"longitude\":118.77477536333353}},{\"latLng\":{\"latitude\":36.881798,\"longitude\":118.781224}},{\"latLng\":{\"latitude\":36.885275404422025,\"longitude\":118.77477536333353}},{\"latLng\":{\"latitude\":36.88506641268743,\"longitude\":118.77779645346065}},{\"latLng\":{\"latitude\":36.88388241651136,\"longitude\":118.77797446859142}},{\"latLng\":{\"latitude\":36.884196416657424,\"longitude\":118.77836347735814}},{\"latLng\":{\"latitude\":36.88380541814815,\"longitude\":118.77850648482281}},{\"latLng\":{\"latitude\":36.88361241859031,\"longitude\":118.77846748529606}},{\"latLng\":{\"latitude\":36.88287342002087,\"longitude\":118.77821948421605}},{\"latLng\":{\"latitude\":36.882772418894824,\"longitude\":118.77768646944828}},{\"latLng\":{\"latitude\":36.88271141993985,\"longitude\":118.77801647962475}},{\"latLng\":{\"latitude\":36.88277541981163,\"longitude\":118.77803647967501}},{\"latLng\":{\"latitude\":36.88246542079611,\"longitude\":118.77807648344117}},{\"latLng\":{\"latitude\":36.882023424857465,\"longitude\":118.77912051773635}},{\"latLng\":{\"latitude\":36.881842427383276,\"longitude\":118.77985354074663}},{\"latLng\":{\"latitude\":36.881255428992056,\"longitude\":118.77983354507096}},{\"latLng\":{\"latitude\":36.881841,\"longitude\":118.781084}},{\"latLng\":{\"latitude\":36.88092143018559,\"longitude\":118.77992255047548}},{\"latLng\":{\"latitude\":36.881828,\"longitude\":118.781129}},{\"latLng\":{\"latitude\":36.881825,\"longitude\":118.781259}},{\"latLng\":{\"latitude\":36.881825,\"longitude\":118.781125}},{\"latLng\":{\"latitude\":36.88183,\"longitude\":118.781257}},{\"latLng\":{\"latitude\":36.881831,\"longitude\":118.781256}},{\"latLng\":{\"latitude\":36.881871,\"longitude\":118.781136}},{\"latLng\":{\"latitude\":36.881837,\"longitude\":118.781122}},{\"latLng\":{\"latitude\":36.881804,\"longitude\":118.780929}},{\"latLng\":{\"latitude\":36.881837,\"longitude\":118.781122}},{\"latLng\":{\"latitude\":36.881871,\"longitude\":118.781136}},{\"latLng\":{\"latitude\":36.881832,\"longitude\":118.781073}},{\"latLng\":{\"latitude\":36.881825,\"longitude\":118.781286}},{\"latLng\":{\"latitude\":36.881819,\"longitude\":118.781248}}]","totalLength":3160,"totalTime":783,"userCode":"这是你的学号"}
+
+其中json美化
+{
+	"beginTime":"2023-03-15 21:37:04",
+	"campus":1,
+	"endTime":"2023-03-15 21:50:11",
+	"markList":"[{\"isStartPosition\":true,\"latLng\":{\"latitude\":36.88682639802524,\"longitude\":118.77394232600646}},{\"latLng\":{\"latitude\":36.886106400534864,\"longitude\":118.77414033782222}},{\"latLng\":{\"latitude\":36.88646240069644,\"longitude\":118.77462434897625}},{\"latLng\":{\"latitude\":36.885275404422025,\"longitude\":118.77477536333353}},{\"latLng\":{\"latitude\":36.881798,\"longitude\":118.781224}},{\"latLng\":{\"latitude\":36.885275404422025,\"longitude\":118.77477536333353}},{\"latLng\":{\"latitude\":36.88506641268743,\"longitude\":118.77779645346065}},{\"latLng\":{\"latitude\":36.88388241651136,\"longitude\":118.77797446859142}},{\"latLng\":{\"latitude\":36.884196416657424,\"longitude\":118.77836347735814}},{\"latLng\":{\"latitude\":36.88380541814815,\"longitude\":118.77850648482281}},{\"latLng\":{\"latitude\":36.88361241859031,\"longitude\":118.77846748529606}},{\"latLng\":{\"latitude\":36.88287342002087,\"longitude\":118.77821948421605}},{\"latLng\":{\"latitude\":36.882772418894824,\"longitude\":118.77768646944828}},{\"latLng\":{\"latitude\":36.88271141993985,\"longitude\":118.77801647962475}},{\"latLng\":{\"latitude\":36.88277541981163,\"longitude\":118.77803647967501}},{\"latLng\":{\"latitude\":36.88246542079611,\"longitude\":118.77807648344117}},{\"latLng\":{\"latitude\":36.882023424857465,\"longitude\":118.77912051773635}},{\"latLng\":{\"latitude\":36.881842427383276,\"longitude\":118.77985354074663}},{\"latLng\":{\"latitude\":36.881255428992056,\"longitude\":118.77983354507096}},{\"latLng\":{\"latitude\":36.881841,\"longitude\":118.781084}},{\"latLng\":{\"latitude\":36.88092143018559,\"longitude\":118.77992255047548}},{\"latLng\":{\"latitude\":36.881828,\"longitude\":118.781129}},{\"latLng\":{\"latitude\":36.881825,\"longitude\":118.781259}},{\"latLng\":{\"latitude\":36.881825,\"longitude\":118.781125}},{\"latLng\":{\"latitude\":36.88183,\"longitude\":118.781257}},{\"latLng\":{\"latitude\":36.881831,\"longitude\":118.781256}},{\"latLng\":{\"latitude\":36.881871,\"longitude\":118.781136}},{\"latLng\":{\"latitude\":36.881837,\"longitude\":118.781122}},{\"latLng\":{\"latitude\":36.881804,\"longitude\":118.780929}},{\"latLng\":{\"latitude\":36.881837,\"longitude\":118.781122}},{\"latLng\":{\"latitude\":36.881871,\"longitude\":118.781136}},{\"latLng\":{\"latitude\":36.881832,\"longitude\":118.781073}},{\"latLng\":{\"latitude\":36.881825,\"longitude\":118.781286}},{\"latLng\":{\"latitude\":36.881819,\"longitude\":118.781248}}]",
+	"totalLength":3160,
+	"totalTime":783,
+	"userCode":"这是你的学号"
+}
+
+接收
+HTTP/1.1 200 
+Date: Wed, 15 Mar 2023 13:50:31 GMT
+Content-Type: application/json
+Connection: close
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Server: Server   
+Content-Length: 39
+
+{"code":"1","msg":"成功","data":null}
+

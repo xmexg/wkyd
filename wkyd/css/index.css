@@ -1,0 +1,176 @@
+body{
+	margin: 0px;
+	width: 100vw;
+	/* height: 100vh; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-image: linear-gradient(180deg,rgb(137 211 246),rgb(255,255,255));
+}
+
+#content{
+	width: 90%;
+	min-width: 700px;
+	height: 100%;
+	/* background: #74c0fc; */
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}
+
+h1{
+	font-size: 2.5em;
+	color: #f0fcff;
+	letter-spacing: 2em;
+}
+
+#introduce{
+	font-size: 1.3em;
+	color: #f0fcff;
+	padding: 10px 20px;
+	transition: 0.5s;
+	border-radius: 20px;
+}
+
+#introduce:hover{
+	color: #7b8494;
+	background: #f0fcff;
+}
+
+#note{
+	font-size: 1.2em;
+	padding: 10px;
+	color: #f5222d;
+}
+
+#show{
+	font-size: 1.2em;
+	padding: 10px;
+	color: #0050b3;
+}
+
+#TheForm{
+	/* width: 100%; */
+	padding: 30px;
+	border-radius: 20px;
+	background: rgba(245, 243, 242, 0.5);
+}
+
+#TheForm input{
+	width: 70%;
+}
+
+#Form{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}
+
+#TheForm text{
+	display: flex;
+}
+
+.fd{
+	width: 90%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: 10px;
+}
+
+.block{
+	font-size: 1.2em;
+	padding: 10px;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-radius: 10px;
+	background: rgba(255, 255, 255, 0.7);
+	
+}
+
+.D{
+	background: #ffa39e;
+}
+
+#saltsignnote{
+	font-size: 1.2em;
+	color: #f5222d;
+}
+
+#saltredo{
+	height: 30px;
+	border-radius: 20px;
+	padding: 5px 10px;
+	transition: 0.5s;
+}
+
+#saltredo:hover{
+	background: rgba(255, 255, 255, 0.7);
+}
+
+#mapcanvasdrawinfo{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
+	font-size: 1.1em;
+	border-radius: 20px;
+	background: rgba(255, 255, 255, 0.7);
+}
+
+#mapcanvasdrawinfo div{
+	display: flex;
+}
+
+.mapcanvasdrawinfoc_div_d2{
+	color: #9254de;
+}
+
+#mapcanvasdiv{
+	width: 690px;
+	height: 690px;
+	/* max-width: 690px;
+	max-height: 690px; */
+	border: #000000 solid 3px;
+	background: #e9ecef;
+}
+
+#mapcanvasdivcan{
+	width: 100%;
+	height: 100%;
+	/* 背景图片 */
+	background-image: url(../res/wkmap.png);
+	background-repeat: no-repeat;/* 不重复 */
+	background-size: 100% 100%;/* 大小 */
+}
+
+#mapcanvasdivtext{
+	width: 100%;
+	height: 100%;
+	border: none;
+	margin: 0px;
+	max-width: 690px;
+	max-height: 690px;
+	display: none;
+	resize: none;
+}
+
+#subdata{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 20px;
+	padding: 10px 20px;
+	font-size: 1.3em;
+	background: rgba(186, 231, 255, 0.7);
+	transition: 0.5s;
+}
+
+#subdata:hover{
+	background: rgba(186, 231, 255, 1);
+}

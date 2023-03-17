@@ -1,0 +1,507 @@
+package com.dudu.run.g.b;
+
+import com.dudu.run.bean.BaseResponse;
+import com.dudu.run.bean.CampusResponseData;
+import com.dudu.run.bean.CheckAppUpdateResponseData;
+import com.dudu.run.bean.ConfigResponseData;
+import com.dudu.run.bean.FeedbackRequestData;
+import com.dudu.run.bean.LatLngInfo;
+import com.dudu.run.bean.LoginRequestData;
+import com.dudu.run.bean.LoginResponseData;
+import com.dudu.run.bean.ModifyPwdRequestData;
+import com.dudu.run.bean.RandomPoint;
+import com.dudu.run.bean.RandomPointRequestData;
+import com.dudu.run.bean.RecordDetailRequestData;
+import com.dudu.run.bean.RecordDetailResponseData;
+import com.dudu.run.bean.RecordItem;
+import com.dudu.run.bean.RecordListRequestData;
+import com.dudu.run.bean.SelectCampusRequestData;
+import com.dudu.run.bean.SubmitRecordRequestData;
+import com.dudu.run.bean.UserIdRequestData;
+import com.dudu.run.utils.n;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import retrofit2.s;
+
+/* compiled from: ApiModelImpl.java */
+/* loaded from: classes.dex */
+public class a implements com.dudu.run.g.a {
+    private com.dudu.run.f.a.a a = (com.dudu.run.f.a.a) com.dudu.run.f.b.a.a().b(com.dudu.run.f.a.a.class);
+
+    /* compiled from: ApiModelImpl.java */
+    /* renamed from: com.dudu.run.g.b.a$a  reason: collision with other inner class name */
+    /* loaded from: classes.dex */
+    class C0070a implements retrofit2.f<BaseResponse<Float>> {
+        final /* synthetic */ com.dudu.run.f.b.c a;
+
+        C0070a(a aVar, com.dudu.run.f.b.c cVar) {
+            this.a = cVar;
+        }
+
+        @Override // retrofit2.f
+        public void a(retrofit2.d<BaseResponse<Float>> dVar, s<BaseResponse<Float>> sVar) {
+            if (sVar != null) {
+                this.a.c(sVar.a());
+            }
+            this.a.b();
+        }
+
+        @Override // retrofit2.f
+        public void b(retrofit2.d<BaseResponse<Float>> dVar, Throwable th) {
+            this.a.d(th.toString());
+            this.a.b();
+        }
+    }
+
+    /* compiled from: ApiModelImpl.java */
+    /* loaded from: classes.dex */
+    class b implements retrofit2.f<BaseResponse<CampusResponseData>> {
+        final /* synthetic */ com.dudu.run.f.b.c a;
+
+        b(a aVar, com.dudu.run.f.b.c cVar) {
+            this.a = cVar;
+        }
+
+        @Override // retrofit2.f
+        public void a(retrofit2.d<BaseResponse<CampusResponseData>> dVar, s<BaseResponse<CampusResponseData>> sVar) {
+            if (sVar != null) {
+                this.a.c(sVar.a());
+            }
+            this.a.b();
+        }
+
+        @Override // retrofit2.f
+        public void b(retrofit2.d<BaseResponse<CampusResponseData>> dVar, Throwable th) {
+            this.a.d(th.toString());
+            this.a.b();
+        }
+    }
+
+    /* compiled from: ApiModelImpl.java */
+    /* loaded from: classes.dex */
+    class c implements retrofit2.f<BaseResponse> {
+        final /* synthetic */ com.dudu.run.f.b.c a;
+
+        c(a aVar, com.dudu.run.f.b.c cVar) {
+            this.a = cVar;
+        }
+
+        @Override // retrofit2.f
+        public void a(retrofit2.d<BaseResponse> dVar, s<BaseResponse> sVar) {
+            if (sVar != null) {
+                this.a.c(sVar.a());
+            }
+            this.a.b();
+        }
+
+        @Override // retrofit2.f
+        public void b(retrofit2.d<BaseResponse> dVar, Throwable th) {
+            this.a.d(th.toString());
+            this.a.b();
+        }
+    }
+
+    /* compiled from: ApiModelImpl.java */
+    /* loaded from: classes.dex */
+    class d implements retrofit2.f<BaseResponse> {
+        final /* synthetic */ com.dudu.run.f.b.c a;
+
+        d(a aVar, com.dudu.run.f.b.c cVar) {
+            this.a = cVar;
+        }
+
+        @Override // retrofit2.f
+        public void a(retrofit2.d<BaseResponse> dVar, s<BaseResponse> sVar) {
+            if (sVar != null) {
+                this.a.c(sVar.a());
+            }
+            this.a.b();
+        }
+
+        @Override // retrofit2.f
+        public void b(retrofit2.d<BaseResponse> dVar, Throwable th) {
+            this.a.d(th.toString());
+            this.a.b();
+        }
+    }
+
+    /* compiled from: ApiModelImpl.java */
+    /* loaded from: classes.dex */
+    class e implements retrofit2.f<BaseResponse<LoginResponseData>> {
+        final /* synthetic */ com.dudu.run.f.b.c a;
+
+        e(a aVar, com.dudu.run.f.b.c cVar) {
+            this.a = cVar;
+        }
+
+        @Override // retrofit2.f
+        public void a(retrofit2.d<BaseResponse<LoginResponseData>> dVar, s<BaseResponse<LoginResponseData>> sVar) {
+            if (sVar != null) {
+                this.a.c(sVar.a());
+            }
+            this.a.b();
+        }
+
+        @Override // retrofit2.f
+        public void b(retrofit2.d<BaseResponse<LoginResponseData>> dVar, Throwable th) {
+            this.a.d(th.toString());
+            this.a.b();
+        }
+    }
+
+    /* compiled from: ApiModelImpl.java */
+    /* loaded from: classes.dex */
+    class f implements retrofit2.f<BaseResponse> {
+        final /* synthetic */ com.dudu.run.f.b.c a;
+
+        f(a aVar, com.dudu.run.f.b.c cVar) {
+            this.a = cVar;
+        }
+
+        @Override // retrofit2.f
+        public void a(retrofit2.d<BaseResponse> dVar, s<BaseResponse> sVar) {
+            if (sVar != null) {
+                this.a.c(sVar.a());
+            }
+            this.a.b();
+        }
+
+        @Override // retrofit2.f
+        public void b(retrofit2.d<BaseResponse> dVar, Throwable th) {
+            this.a.d(th.toString());
+            this.a.b();
+        }
+    }
+
+    /* compiled from: ApiModelImpl.java */
+    /* loaded from: classes.dex */
+    class g implements retrofit2.f<BaseResponse<ConfigResponseData>> {
+        final /* synthetic */ com.dudu.run.f.b.c a;
+
+        g(a aVar, com.dudu.run.f.b.c cVar) {
+            this.a = cVar;
+        }
+
+        @Override // retrofit2.f
+        public void a(retrofit2.d<BaseResponse<ConfigResponseData>> dVar, s<BaseResponse<ConfigResponseData>> sVar) {
+            if (sVar != null) {
+                this.a.c(sVar.a());
+            }
+            this.a.b();
+        }
+
+        @Override // retrofit2.f
+        public void b(retrofit2.d<BaseResponse<ConfigResponseData>> dVar, Throwable th) {
+            this.a.d(th.toString());
+            this.a.b();
+        }
+    }
+
+    /* compiled from: ApiModelImpl.java */
+    /* loaded from: classes.dex */
+    class h implements retrofit2.f<BaseResponse<List<RandomPoint>>> {
+        final /* synthetic */ com.dudu.run.f.b.c a;
+
+        h(a aVar, com.dudu.run.f.b.c cVar) {
+            this.a = cVar;
+        }
+
+        @Override // retrofit2.f
+        public void a(retrofit2.d<BaseResponse<List<RandomPoint>>> dVar, s<BaseResponse<List<RandomPoint>>> sVar) {
+            if (sVar != null) {
+                this.a.c(sVar.a());
+            }
+            this.a.b();
+        }
+
+        @Override // retrofit2.f
+        public void b(retrofit2.d<BaseResponse<List<RandomPoint>>> dVar, Throwable th) {
+            this.a.d(th.toString());
+            this.a.b();
+        }
+    }
+
+    /* compiled from: ApiModelImpl.java */
+    /* loaded from: classes.dex */
+    class i implements retrofit2.f<BaseResponse> {
+        final /* synthetic */ com.dudu.run.f.b.c a;
+
+        i(a aVar, com.dudu.run.f.b.c cVar) {
+            this.a = cVar;
+        }
+
+        @Override // retrofit2.f
+        public void a(retrofit2.d<BaseResponse> dVar, s<BaseResponse> sVar) {
+            if (sVar != null) {
+                this.a.c(sVar.a());
+            }
+            this.a.b();
+        }
+
+        @Override // retrofit2.f
+        public void b(retrofit2.d<BaseResponse> dVar, Throwable th) {
+            this.a.d(th.toString());
+            this.a.b();
+        }
+    }
+
+    /* compiled from: ApiModelImpl.java */
+    /* loaded from: classes.dex */
+    class j implements retrofit2.f<BaseResponse<RecordDetailResponseData>> {
+        final /* synthetic */ com.dudu.run.f.b.c a;
+
+        j(a aVar, com.dudu.run.f.b.c cVar) {
+            this.a = cVar;
+        }
+
+        @Override // retrofit2.f
+        public void a(retrofit2.d<BaseResponse<RecordDetailResponseData>> dVar, s<BaseResponse<RecordDetailResponseData>> sVar) {
+            if (sVar != null) {
+                this.a.c(sVar.a());
+            }
+            this.a.b();
+        }
+
+        @Override // retrofit2.f
+        public void b(retrofit2.d<BaseResponse<RecordDetailResponseData>> dVar, Throwable th) {
+            this.a.d(th.toString());
+            this.a.b();
+        }
+    }
+
+    /* compiled from: ApiModelImpl.java */
+    /* loaded from: classes.dex */
+    class k implements retrofit2.f<BaseResponse<List<RecordItem>>> {
+        final /* synthetic */ com.dudu.run.f.b.c a;
+
+        k(a aVar, com.dudu.run.f.b.c cVar) {
+            this.a = cVar;
+        }
+
+        @Override // retrofit2.f
+        public void a(retrofit2.d<BaseResponse<List<RecordItem>>> dVar, s<BaseResponse<List<RecordItem>>> sVar) {
+            if (sVar != null) {
+                this.a.c(sVar.a());
+            }
+            this.a.b();
+        }
+
+        @Override // retrofit2.f
+        public void b(retrofit2.d<BaseResponse<List<RecordItem>>> dVar, Throwable th) {
+            this.a.d(th.toString());
+            this.a.b();
+        }
+    }
+
+    /* compiled from: ApiModelImpl.java */
+    /* loaded from: classes.dex */
+    class l implements retrofit2.f<BaseResponse<Integer>> {
+        final /* synthetic */ com.dudu.run.f.b.c a;
+
+        l(a aVar, com.dudu.run.f.b.c cVar) {
+            this.a = cVar;
+        }
+
+        @Override // retrofit2.f
+        public void a(retrofit2.d<BaseResponse<Integer>> dVar, s<BaseResponse<Integer>> sVar) {
+            if (sVar != null) {
+                this.a.c(sVar.a());
+            }
+            this.a.b();
+        }
+
+        @Override // retrofit2.f
+        public void b(retrofit2.d<BaseResponse<Integer>> dVar, Throwable th) {
+            this.a.d(th.toString());
+            this.a.b();
+        }
+    }
+
+    /* compiled from: ApiModelImpl.java */
+    /* loaded from: classes.dex */
+    class m implements retrofit2.f<BaseResponse<CheckAppUpdateResponseData>> {
+        final /* synthetic */ com.dudu.run.f.b.c a;
+
+        m(a aVar, com.dudu.run.f.b.c cVar) {
+            this.a = cVar;
+        }
+
+        @Override // retrofit2.f
+        public void a(retrofit2.d<BaseResponse<CheckAppUpdateResponseData>> dVar, s<BaseResponse<CheckAppUpdateResponseData>> sVar) {
+            if (sVar != null) {
+                this.a.c(sVar.a());
+            }
+            this.a.b();
+        }
+
+        @Override // retrofit2.f
+        public void b(retrofit2.d<BaseResponse<CheckAppUpdateResponseData>> dVar, Throwable th) {
+            this.a.d(th.toString());
+            this.a.b();
+        }
+    }
+
+    @Override // com.dudu.run.g.a
+    public void a(int i2, com.dudu.run.f.b.c<BaseResponse<RecordDetailResponseData>> cVar) {
+        String a = n.a();
+        String b2 = n.b(a);
+        RecordDetailRequestData recordDetailRequestData = new RecordDetailRequestData();
+        recordDetailRequestData.a(i2);
+        retrofit2.d<BaseResponse<RecordDetailResponseData>> h2 = this.a.h(a, b2, recordDetailRequestData);
+        cVar.a();
+        h2.W(new j(this, cVar));
+    }
+
+    @Override // com.dudu.run.g.a
+    public void b(String str, String str2, com.dudu.run.f.b.c<BaseResponse<LoginResponseData>> cVar) {
+        String a = n.a();
+        String b2 = n.b(a);
+        LoginRequestData loginRequestData = new LoginRequestData();
+        loginRequestData.b(str);
+        loginRequestData.a(str2);
+        retrofit2.d<BaseResponse<LoginResponseData>> m2 = this.a.m(a, b2, loginRequestData);
+        cVar.a();
+        m2.W(new e(this, cVar));
+    }
+
+    @Override // com.dudu.run.g.a
+    public void c(int i2, long j2, long j3, float f2, int i3, List<LatLngInfo> list, com.dudu.run.f.b.c<BaseResponse> cVar) {
+        String a = n.a();
+        String b2 = n.b(a);
+        SubmitRecordRequestData submitRecordRequestData = new SubmitRecordRequestData();
+        submitRecordRequestData.g(com.dudu.run.b.c().m());
+        submitRecordRequestData.b(i2);
+        submitRecordRequestData.a(com.dudu.run.utils.e.b(j2));
+        submitRecordRequestData.c(com.dudu.run.utils.e.b(j3));
+        submitRecordRequestData.e((int) f2);
+        submitRecordRequestData.f(i3);
+        ArrayList arrayList = new ArrayList();
+        for (LatLngInfo latLngInfo : list) {
+            HashMap hashMap = new HashMap();
+            hashMap.put("latLng", latLngInfo.latLng);
+            if (latLngInfo.isStartPosition) {
+                hashMap.put("isStartPosition", Boolean.TRUE);
+            }
+            arrayList.add(hashMap);
+        }
+        submitRecordRequestData.d(new com.google.gson.e().r(arrayList));
+        retrofit2.d<BaseResponse> f3 = this.a.f(a, b2, submitRecordRequestData);
+        cVar.a();
+        f3.W(new i(this, cVar));
+    }
+
+    @Override // com.dudu.run.g.a
+    public void d(com.dudu.run.f.b.c<BaseResponse> cVar) {
+        String a = n.a();
+        String b2 = n.b(a);
+        UserIdRequestData userIdRequestData = new UserIdRequestData();
+        userIdRequestData.a(com.dudu.run.b.c().m());
+        retrofit2.d<BaseResponse> j2 = this.a.j(a, b2, userIdRequestData);
+        cVar.a();
+        j2.W(new c(this, cVar));
+    }
+
+    @Override // com.dudu.run.g.a
+    public void e(int i2, int i3, com.dudu.run.f.b.c<BaseResponse<List<RecordItem>>> cVar) {
+        String a = n.a();
+        String b2 = n.b(a);
+        RecordListRequestData recordListRequestData = new RecordListRequestData();
+        recordListRequestData.c(com.dudu.run.b.c().m());
+        recordListRequestData.a(i2);
+        recordListRequestData.b(i3);
+        retrofit2.d<BaseResponse<List<RecordItem>>> b3 = this.a.b(a, b2, recordListRequestData);
+        cVar.a();
+        b3.W(new k(this, cVar));
+    }
+
+    @Override // com.dudu.run.g.a
+    public void f(int i2, double d2, double d3, com.dudu.run.f.b.c<BaseResponse<List<RandomPoint>>> cVar) {
+        String a = n.a();
+        String b2 = n.b(a);
+        RandomPointRequestData randomPointRequestData = new RandomPointRequestData();
+        randomPointRequestData.d(com.dudu.run.b.c().m());
+        randomPointRequestData.a(i2);
+        randomPointRequestData.b(d2);
+        randomPointRequestData.c(d3);
+        retrofit2.d<BaseResponse<List<RandomPoint>>> c2 = this.a.c(a, b2, randomPointRequestData);
+        cVar.a();
+        c2.W(new h(this, cVar));
+    }
+
+    @Override // com.dudu.run.g.a
+    public void g(String str, String str2, com.dudu.run.f.b.c<BaseResponse> cVar) {
+        String a = n.a();
+        String b2 = n.b(a);
+        ModifyPwdRequestData modifyPwdRequestData = new ModifyPwdRequestData();
+        modifyPwdRequestData.c(com.dudu.run.b.c().m());
+        modifyPwdRequestData.b(str);
+        modifyPwdRequestData.a(str2);
+        retrofit2.d<BaseResponse> a2 = this.a.a(a, b2, modifyPwdRequestData);
+        cVar.a();
+        a2.W(new f(this, cVar));
+    }
+
+    @Override // com.dudu.run.g.a
+    public void h(com.dudu.run.f.b.c<BaseResponse<ConfigResponseData>> cVar) {
+        String a = n.a();
+        retrofit2.d<BaseResponse<ConfigResponseData>> d2 = this.a.d(a, n.b(a));
+        cVar.a();
+        d2.W(new g(this, cVar));
+    }
+
+    @Override // com.dudu.run.g.a
+    public void i(double d2, double d3, com.dudu.run.f.b.c<BaseResponse<CampusResponseData>> cVar) {
+        String a = n.a();
+        String b2 = n.b(a);
+        SelectCampusRequestData selectCampusRequestData = new SelectCampusRequestData();
+        selectCampusRequestData.a(d2);
+        selectCampusRequestData.b(d3);
+        retrofit2.d<BaseResponse<CampusResponseData>> g2 = this.a.g(a, b2, selectCampusRequestData);
+        cVar.a();
+        g2.W(new b(this, cVar));
+    }
+
+    @Override // com.dudu.run.g.a
+    public void j(String str, String str2, com.dudu.run.f.b.c<BaseResponse> cVar) {
+        String a = n.a();
+        String b2 = n.b(a);
+        FeedbackRequestData feedbackRequestData = new FeedbackRequestData();
+        feedbackRequestData.c(com.dudu.run.b.c().m());
+        feedbackRequestData.a(str);
+        feedbackRequestData.b(str2);
+        retrofit2.d<BaseResponse> i2 = this.a.i(a, b2, feedbackRequestData);
+        cVar.a();
+        i2.W(new d(this, cVar));
+    }
+
+    @Override // com.dudu.run.g.a
+    public void k(com.dudu.run.f.b.c<BaseResponse<Integer>> cVar) {
+        String a = n.a();
+        String b2 = n.b(a);
+        UserIdRequestData userIdRequestData = new UserIdRequestData();
+        userIdRequestData.a(com.dudu.run.b.c().m());
+        retrofit2.d<BaseResponse<Integer>> e2 = this.a.e(a, b2, userIdRequestData);
+        cVar.a();
+        e2.W(new l(this, cVar));
+    }
+
+    @Override // com.dudu.run.g.a
+    public void l(com.dudu.run.f.b.c<BaseResponse<CheckAppUpdateResponseData>> cVar) {
+        String a = n.a();
+        retrofit2.d<BaseResponse<CheckAppUpdateResponseData>> k2 = this.a.k(a, n.b(a));
+        cVar.a();
+        k2.W(new m(this, cVar));
+    }
+
+    @Override // com.dudu.run.g.a
+    public void m(com.dudu.run.f.b.c<BaseResponse<Float>> cVar) {
+        String a = n.a();
+        String b2 = n.b(a);
+        UserIdRequestData userIdRequestData = new UserIdRequestData();
+        userIdRequestData.a(com.dudu.run.b.c().m());
+        retrofit2.d<BaseResponse<Float>> l2 = this.a.l(a, b2, userIdRequestData);
+        cVar.a();
+        l2.W(new C0070a(this, cVar));
+    }
+}

@@ -103,12 +103,37 @@ public class e {
     }
 }
 ```  
-`第1个方法a()生成一个UUID,并去除里面的-,如果替换后文本小于8位,则返回1234asdf,否则返回这段文本的前8位`
-`第2个方法b()能接收一个字符串,使用e.a()生成现在的日期,加上当前的日期和duDusDut,然后计算这段文本的md5,并返回转换成小写字母后的md5`
-`这里的随机数即为salt,md5即为sign`
+`第1个方法a()生成一个UUID,并去除里面的-,如果替换后文本小于8位,则返回1234asdf,否则返回这段文本的前8位`  
+`第2个方法b()能接收一个字符串,使用e.a()生成现在的日期,加上当前的日期和duDusDut,然后计算这段文本的md5,并返回转换成小写字母后的md5`  
+`推论: salt为生成的随机数, sign为加密后的md5`
+  
+### salt的值怎么获得?
+ - 搜素一下`salt`,找到这里([com.dudu.run.f.a](./apktojava/com_dudu_run_f_a_a))
+观察`/api/sys/currVersion`接口,这是软件启动时的更新检查接口,他是最干净的,参数只有salt和sign,  
+```
+ @o("/api/sys/currVersion")
+ d<BaseResponse<CheckAppUpdateResponseData>> k(@t("salt") String str, @t("sign") String str2);
+```
+ - 搜素一下`com.dudu.run.f.a`,看看哪里引入了这些接口,找到了这里([com.dudu.run.g.b.a](./apktojava/com_dudu_run_g_b_a))
+该包`import com.dudu.run.utils.n;`   
+```
+    @Override // com.dudu.run.g.a
+    public void l(com.dudu.run.f.b.c<BaseResponse<CheckAppUpdateResponseData>> cVar) {
+        String a = n.a();
+        retrofit2.d<BaseResponse<CheckAppUpdateResponseData>> k2 = this.a.k(a, n.b(a));
+        cVar.a();
+        k2.W(new m(this, cVar));
+    }
+```
+ - 找到`com.dudu.run.utils`,该文件源码在该标题下,n.a是生成一段8位的随机数,n.b(a)是随机数转md5,具体转法见标题`md5加密(com.dudu.run.utils)`   
+ - 确凿上文salt和sign的算法是正确的,但不知道为什么和实际不一样`  
+ - 对上条的后续:我尽可能原封不动的复刻了加密相关的包,是这套理论,他又正常工作了,说明我给出的加密方法是正确的,复刻代码见[apkmd5code](./apkmd5code)文件夹
+
+
 
 ## 一些已知的包的用途
 
+ - 唯一`import com.dudu.run.utils.n`的包(com.dudu.run.g.b.a)
  - 数据接口(com.dudu.run.f.a.a)
 
 ### com.dudu.tun.utils下的类分析

@@ -11,8 +11,9 @@ wk运动app的抓包笔记与利用思路
 # 笔记
 
 ## salt和sign  
-- salt和sign已解密,8位随机字符为salt,加上duDusDut再md5转小写字母为sign,详见[apk反编译分析笔记](./apk反编译分析笔记.md)
-- 他们在未登录前的检查更新中就已经可以生成,并且通过替换学号,相同的salt和sign仍然生效推测,这两值的原始密文应该是固定的,与帐号和密码无关;salt和sign有有效时长,较长时候后会失效; 
+- salt和sign已解密,使用UUID随机字符的前8位为salt,加上当前日期加duDusDut再md5转小写字母为sign,可使用[演示程序](./apkmd5code/apkmd5code.jar)来生成,详见[apk反编译分析笔记](./apk反编译分析笔记.md)
+![image](./image/apkmd5codejar.png)
+- salt和sign在未登录前的检查更新中就已经可以生成,并且通过替换学号,相同的salt和sign仍然生效推测,这两值的原始密文应该是固定的,与帐号和密码无关;salt和sign有有效时长,较长时候后会失效; 
 - 使用有效的salt和sign值,通过修改学号可操作指定学号的信息
 
 ## 跑步

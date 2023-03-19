@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Main-Class: org.mexvina.wkyd.WkydApplication
+Class-Path: spring-webmvc-6.0.6.jar logback-core-1.4.5.jar spring-boot-s
+ tarter-web-3.0.4.jar jackson-datatype-jsr310-2.14.2.jar tomcat-embed-co
+ re-10.1.5.jar jackson-datatype-jdk8-2.14.2.jar thymeleaf-3.1.1.RELEASE.
+ jar unbescape-1.1.6.RELEASE.jar spring-expression-6.0.6.jar spring-boot
+ -starter-3.0.4.jar spring-boot-3.0.4.jar spring-boot-starter-logging-3.
+ 0.4.jar logback-classic-1.4.5.jar spring-aop-6.0.6.jar jackson-annotati
+ ons-2.14.2.jar tomcat-embed-el-10.1.5.jar spring-boot-autoconfigure-3.0
+ .4.jar jakarta.annotation-api-2.1.1.jar snakeyaml-1.33.jar micrometer-c
+ ommons-1.10.4.jar log4j-api-2.19.0.jar spring-context-6.0.6.jar fastjso
+ n2-2.0.23.jar thymeleaf-spring6-3.1.1.RELEASE.jar micrometer-observatio
+ n-1.10.4.jar jul-to-slf4j-2.0.6.jar slf4j-api-2.0.6.jar spring-jcl-6.0.
+ 6.jar jackson-module-parameter-names-2.14.2.jar spring-boot-starter-tom
+ cat-3.0.4.jar spring-web-6.0.6.jar spring-core-6.0.6.jar jackson-databi
+ nd-2.14.2.jar attoparser-2.0.6.RELEASE.jar spring-boot-starter-thymelea
+ f-3.0.4.jar tomcat-embed-websocket-10.1.5.jar spring-boot-starter-json-
+ 3.0.4.jar jackson-core-2.14.2.jar fastjson-2.0.23.jar log4j-to-slf4j-2.
+ 19.0.jar spring-beans-6.0.6.jar fastjson2-extension-2.0.23.jar
+

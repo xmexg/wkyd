@@ -9,7 +9,10 @@ var jsonObj = {
 	'userCode':''
 };//要提交的body内的json
 var roadjson = "";//markList中的,即道路json
-var roadlen = 0;//点的个数
+var roadlen = 0;//节点的总个数
+var roadlenrecord = 0;//记录的节点的个数
+var nodespace = 0;//设置的节点间距
+var nodespacenow = 0;//当前的节点间距
 var roadGeolen = 0;//路线长度(cm)
 var canvasWidth = 690;//画布宽度
 var canvasHeight = 690;//画布高度
@@ -25,7 +28,8 @@ var GeoW = 1250;//地图地理宽度(cm)
 var GeoPixel = GeoW/canvasWidth;//地图像素点长度
 
 //页面元素
-let mapinfod1 = document.getElementById("mcdid1");
+let mapinfod1_1 = document.getElementById("mcdid1_1");//节点总数
+let mapinfod1_2 = document.getElementById("mcdid1_2");//节点记录数量
 let mapinfod2 = document.getElementById("mcdid2");
 let ResTe = document.getElementById("res");
 let saltbut = document.getElementById("saltredo");
@@ -71,7 +75,16 @@ function saltchange(){
 
 //设备类型识别
 
-
+//监听节点间隔改变时
+function nodespacechange(){
+    let getnodespace = document.getElementById("nodespace").value;
+    if(parseInt(getnodespace) > 0){
+        nodespace = parseInt(getnodespace);
+    }else{
+        nodespace = 0;
+    }
+//    console.log("节点间隔改变:", nodespace);
+}
 
 
 //地图画板
@@ -91,9 +104,16 @@ function drawLine(e){
 	roadGeolen += calGeolen(e);
 	roadlen++;
 	let ituse = calXY(e);
-	roadjson += ',{"latLng":{"latitude":'+ituse.y+',"longitude":'+ituse.x+'}}';
+	if(nodespacenow >= nodespace){//如果当前节点间隔大于等于设置的节点间隔
+	    roadjson += ',{"latLng":{"latitude":'+ituse.y+',"longitude":'+ituse.x+'}}';
+	    roadlenrecord++;//记录的节点的个数+1
+	    nodespacenow = 0;//当前节点间隔归零
+	}else{
+	    nodespacenow++;//当前节点间隔+1
+	}
 	[lastX, lastY] = [e.offsetX, e.offsetY];
-	mapinfod1.innerHTML = roadlen;
+	mapinfod1_1.innerHTML = roadlen;
+	mapinfod1_2.innerHTML = roadlenrecord;
 	mapinfod2.innerHTML = roadGeolen;
 	// console.log(roadlen,"Line",e.offsetX, e.offsetY, context.strokeStyle);
 }
@@ -102,6 +122,8 @@ canvas.addEventListener("mousedown", (e) =>{
 	if(firstDraw){
 		firstDraw = false;
 		let ituse = calXY(e);
+		roadlen++;//节点的总个数+1
+		roadlenrecord++;//记录的节点的个数+1
 		roadjson = '{"isStartPosition":true,"latLng":{"latitude":'+ituse.y+',"longitude":'+ituse.x+'}}';
 		[lastX, lastY] = [e.offsetX, e.offsetY];
 	}else{
@@ -111,10 +133,10 @@ canvas.addEventListener("mousedown", (e) =>{
 canvas.addEventListener("mousemove", drawLine);
 canvas.addEventListener("mouseup", (e) => {
 	isDrawing = false;
-	roadlen++;
 	roadGeolen += calGeolen(e);
 	[lastX, lastY] = [e.offsetX, e.offsetY];//解决鼠标松开后划线不连贯
-	mapinfod1.innerHTML = roadlen;
+	mapinfod1_1.innerHTML = roadlen;
+	mapinfod1_2.innerHTML = roadlenrecord;
 	mapinfod2.innerHTML = roadGeolen;
 	// console.log("Line", lastX, lastY, context.strokeStyle);
 });

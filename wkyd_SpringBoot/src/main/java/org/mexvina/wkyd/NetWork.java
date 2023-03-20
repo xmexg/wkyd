@@ -1,11 +1,5 @@
 package org.mexvina.wkyd;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -115,32 +109,6 @@ public class NetWork {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }
-    }
-
-    //使用Apache HttpClient发送post请求
-    public static String sendPost3(String url,Map<String, String> head , String param ) {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost(url);
-        //设置请求头
-        httpPost.setHeader("Connection", "close");
-        httpPost.setHeader("Content-Type", "application/json ; charset=utf-8");
-        httpPost.setHeader("Host", "sports.wfust.edu.cn");
-        httpPost.setHeader("Accept-Encoding", "gzip, deflate, result");
-        for (Map.Entry<String, String> entry : head.entrySet()) {
-            httpPost.setHeader(entry.getKey(), entry.getValue());
-        }
-        //设置请求体
-        httpPost.setEntity(new StringEntity(param, "UTF-8"));
-        //发送请求
-        CloseableHttpResponse response = null;
-        HttpEntity entity = null;
-        try {
-            response = httpClient.execute(httpPost);
-            entity = response.getEntity();
-            return entity.toString();
-        } catch (IOException e) {
-            return "向学校服务器发送请求失败: " + e.getMessage();
         }
     }
 }

@@ -11,7 +11,7 @@
 	<div id="content">
 		<h1>wk运动</h1>
 		<text id="introduce">编辑如下信息,自动体育运动</text>
-		<text id="show">该网站免费且不会保留任何用户的任何数据,所有数据均由学校api获取得到<br><a href="https://github.com/xmexg/wkyd">加入程序建设:https://github.com/xmexg/wkyd</a></text>
+		<text id="show">该网站目前免费且不会保留任何用户的任何数据,所有数据均由学校api获取得到<br>网站开发者正在考虑购买:<a href="https://www.amazon.cn/dp/B0BFXKSFNT/ref=sr_1_1">Flipper Zero（FLP-ZW-R04）亚马逊</a>&nbsp;<a href="https://item.taobao.com/item.htm?id=682905108733">Flipper Zero 淘宝</a><br><a href="https://github.com/xmexg/wkyd">加入程序建设:https://github.com/xmexg/wkyd</a></text>
 		<text id="note">请注意,该程序没有编写任何数据合理性检验的代码,你可以把信息编辑成任何你想要的样子,包括但不限于:
 			<ul>
 				<li>无地图提交或把1cm的地图路线说成3km的长度</li>
@@ -22,11 +22,23 @@
 				<li>...</li>
 			</ul>
 		</text>
+		<div id="sponsor">
+			<image th:src="@{/res/Flipper.png}" src="../static/res/Flipper.png" id="sponsorimg" height="100%"></image>
+			<div id="sponsor_info">
+				<h2>赞助开发者</h2>
+				<p id="tip">该网站目前免费,你可以点击下方按钮跳过赞助直接进行校园运动<br>如果开发者长时间未收到赞助,会付费提供校园运动服务<br>赞助时,请备注你的学号,开发者会做记录</p>
+				<div id="sponsorbtn">
+					<button id="sponsorbtn1" onclick="sponsorbtn1()" style="font-size: 3em;">我已赞助开发者</button>
+					<button id="sponsorbtn2" onclick="sponsorbtn2()">下次一定</button>
+				</div>
+			</div>
+			<image th:src="@{/res/wechatpay.png}" src="../static/res/wechatpay.png" id="wechatpay" height="100%"></image>
+		</div>
 		<div id="TheForm">
 			<!-- 这个form大概率会弃用,先留着 -->
 			<form id="Form" name="usrform"  action="updata" method="post">
 				<div class="fd"><div id="saltsignnote">salt和sign是学校用于数据验证的加密算法,解密过程见<a href="https://github.com/xmexg/wkyd/blob/main/apk%E5%8F%8D%E7%BC%96%E8%AF%91%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0.md">apk反编译分析笔记</a><br>salt由8位0-9和a-f组成,sign该网站会帮你计算<br>如果填写不合理则无法通过学校数据验证</div></div>
-				<div class="fd">salt:<input class="U D block" type="text" name="salt" id="salt" placeholder="salt(8位0-9和a-f,不合规无法提交)" oninput="saltchange()" maxlength="8" ><image src="./res/redo.png" id="saltredo" ></image></div>
+				<div class="fd">salt:<input class="U D block" type="text" name="salt" id="salt" placeholder="salt(8位0-9和a-f,不合规无法提交)" oninput="saltchange()" maxlength="8" ><image th:src="@{/res/redo.png}" src="../static/res/redo.png" id="saltredo" ></image></div>
 				<div class="fd">sign:<input class="U D block" type="text" name="sign" id="sign" placeholder="访问学校服务器时的sign" disabled></div>
 
 				<div class="fd">学号:<input class="H block" type="text" name="id" id="id" placeholder="学号" required></div>
@@ -35,8 +47,8 @@
 				<div class="fd">手机型号:<input class="H block" type="text" name="phone" id="phone" placeholder="手机型号" required value="Xiaomi M2011K2C"></div>
 				<div class="fd">UA:<input class="H D block" type="text" name="useragent" id="useragent" placeholder="请求头(okhttp/4.5.0)" required value="okhttp/4.5.0"></div>
 
-				<div class="fd">运动距离长度:<input class="block" type="number" name="totalGeoLength" id="totalGeoLength" placeholder="运动距离(3030)"></div>
-				<div class="fd">运动时间长度:<input class="block" type="number" name="totalTimeLength" id="totalTimeLength" placeholder="运动时长(1469)"></div>
+				<div class="fd">运动距离长度(米):<input class="block" type="number" name="totalGeoLength" id="totalGeoLength" placeholder="运动距离(3030)"></div>
+				<div class="fd">运动时间长度(秒):<input class="block" type="number" name="totalTimeLength" id="totalTimeLength" placeholder="运动时长(1469)"></div>
 				<div class="fd">开始时间:<input class="block" type="datetime-local" name="beginTime" id="beginTime" step="1" placeholder="开始时间(2023-03-16 11:13:27)"></div>
 				<div class="fd">结束时间:<input class="block" type="datetime-local" name="endTime" id="endTime" step="1" placeholder="结束时间(2023-03-16 11:15:40)"></div>
 				<div class="fd">校区:<input class="block" type="text" name="campus" id="campus" placeholder="校区(1)" value="1"></div>
@@ -55,6 +67,12 @@
 					<div class="mapcanvasdrawinfoc_div"><div class="mapcanvasdrawinfoc_div_d1">参考路程(米):</div><div class="mapcanvasdrawinfoc_div_d2" id="mcdid2"></div></div>
 				</div>
 				<div id="mapcanvasdiv">
+					<div id="get4point">获取打卡点(不必要)<div id="get4pointres"></div></div>
+					<!-- 在画板顶层放置一个隐形的div,用于放置一些标记 -->
+					<div id="canvasTOP">
+						<!-- <image id="testimg" th:src="@{/res/local_br.png}" src="../static/res/local_br.png" width="20px" style="left: 310.31583182445206px;top: 278.5985327600884px;"></image> -->
+					</div>
+					
 					<canvas id="mapcanvasdivcan" width="690" height="690"></canvas>
 					<textarea id="mapcanvasdivtext" class="D" name="mapdata"  placeholder="自定义跑步json数据,此处文本会作为latLng的值"></textarea>
 				</div>

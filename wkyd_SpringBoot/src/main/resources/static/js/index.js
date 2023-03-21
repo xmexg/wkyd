@@ -9,6 +9,7 @@ var jsonObj = {
 	'userCode':''
 };//要提交的body内的json
 var roadjson = "";//markList中的,即道路json
+var startpoint = [];//起始出发点,[x经度,y纬度],用于获取4个打卡点
 var roadlen = 0;//节点的总个数
 var roadlenrecord = 0;//记录的节点的个数
 var nodespace = 0;//设置的节点间距
@@ -28,11 +29,27 @@ var GeoW = 1250;//地图地理宽度(cm)
 var GeoPixel = GeoW/canvasWidth;//地图像素点长度
 
 //页面元素
+let sponsor = document.getElementById("sponsor");//赞助
+let TheForm = document.getElementById("TheForm");//表格
 let mapinfod1_1 = document.getElementById("mcdid1_1");//节点总数
 let mapinfod1_2 = document.getElementById("mcdid1_2");//节点记录数量
 let mapinfod2 = document.getElementById("mcdid2");
 let ResTe = document.getElementById("res");
 let saltbut = document.getElementById("saltredo");
+let get4pointres = document.getElementById("get4pointres");//获取打卡点的返回信息
+let canvasTOP = document.getElementById("canvasTOP");//画板顶层
+
+
+//赞助按钮
+function sponsorbtn1(){
+    sponsor.style.display = "none";
+    TheForm.style.display = "flex";
+}
+function sponsorbtn2(){
+    sponsor.style.display = "none";
+    TheForm.style.display = "flex";
+}
+
 
 //随机生成8个字符的salt,包含小写字母加数字
 function randomSalt(){
@@ -103,7 +120,7 @@ function drawLine(e){
 	context.stroke();
 	roadGeolen += calGeolen(e);
 	roadlen++;
-	let ituse = calXY(e);
+	let ituse = calXYtoL(e);
 	if(nodespacenow >= nodespace){//如果当前节点间隔大于等于设置的节点间隔
 	    roadjson += ',{"latLng":{"latitude":'+ituse.y+',"longitude":'+ituse.x+'}}';
 	    roadlenrecord++;//记录的节点的个数+1
@@ -121,11 +138,12 @@ canvas.addEventListener("mousedown", (e) =>{
 	isDrawing = true;
 	if(firstDraw){
 		firstDraw = false;
-		let ituse = calXY(e);
+		let ituse = calXYtoL(e);
 		roadlen++;//节点的总个数+1
 		roadlenrecord++;//记录的节点的个数+1
 		roadjson = '{"isStartPosition":true,"latLng":{"latitude":'+ituse.y+',"longitude":'+ituse.x+'}}';
 		[lastX, lastY] = [e.offsetX, e.offsetY];
+	    startpoint = [ituse.x, ituse.y];
 	}else{
 		drawLine(e);
 	}
@@ -143,20 +161,34 @@ canvas.addEventListener("mouseup", (e) => {
 canvas.addEventListener("mouseout", (e) => {
 	// isDrawing = false;
 });
-function calXY(e){
+
+//计算坐标,将画板坐标转换为地图坐标
+function calXYtoL(e){
 	let ituse = {
 		x: e.offsetX * RatioX + OriginSX,
 		y: e.offsetY * RatioY + OriginSY
 	} ;
-	// console.log("calXY", ituse.x, ituse.y);
+	// console.log("calXYtoL", ituse.x, ituse.y);
 	return ituse;
 }
+
+//通过勾股定理计算两点间物理距离
 function calGeolen(e){
 	if(e.offsetX == lastX && e.offsetY == lastY) return 0;
 	if(e.offsetX == lastX) return Math.abs(e.offsetY - lastY) * GeoPixel;
 	if(e.offsetY == lastY) return Math.abs(e.offsetX - lastX) * GeoPixel;
 	return Math.sqrt(Math.pow(e.offsetX - lastX, 2) + Math.pow(e.offsetY - lastY, 2)) * GeoPixel;//勾股定理
-};
+}
+
+//计算坐标,将地图坐标转换为画板坐标
+function calLtoXY(x, y){
+    let ituse = {
+        x: (x - OriginSX) / RatioX,
+        y: (y - OriginSY) / RatioY
+    } ;
+    // console.log("caXYtoL", ituse.x, ituse.y);
+    return ituse;
+}
 
 
 //地图类型控制
@@ -166,12 +198,81 @@ document.getElementById("mapdatatype").onchange = function(){
 	let maptext = document.getElementById("mapcanvasdivtext");
 	let mapinfo = document.getElementById("mapcanvasdrawinfo");
 	if(maptype == "m"){
+		document.getElementById("get4point").style.display = "block";
+		document.getElementById("canvasTOP").style.display = "block";
 		mapcanv.style.display = "block";
 		maptext.style.display = "none";
 	}else{
+		document.getElementById("get4point").style.display = "none";
+		document.getElementById("canvasTOP").style.display = "none";
 		mapcanv.style.display = "none";
 		maptext.style.display = "block";
 	}
+}
+
+let point4;//获取打卡点的响应
+//点击获取打卡点按钮后,网络请求,获取打卡点
+document.getElementById("get4point").onclick = function(){
+    if(startpoint.length == 0 || document.getElementById("id").value == "" || document.getElementById("campus").value == ""){
+        alert("参数不完整:\n1.请检查学号\n2.请检查校区是否填写\n3.请先在地图上设置一个起点,然后再获取打卡点!");
+        return;
+    }
+    let url = "/api/semester/queryPoint?salt="+document.getElementById("salt").value+'&sign='+document.getElementById("sign").value;
+    let HEAD = {//服务器要设置的请求头信息
+		"X-Re-Os": document.getElementById("ostype").value,
+		"X-Re-Version": document.getElementById("version").value,
+		"X-Re-Device": document.getElementById("phone").value,
+		"User-Agent": document.getElementById("useragent").value
+	};
+	let BODY = {
+	    "campus": document.getElementById("campus").value,
+	    "pointLat": startpoint[1],
+	    "pointLong": startpoint[0],
+	    "userCode": document.getElementById("id").value
+	};
+	let params = {
+		"HEAD": HEAD,
+		"BODY": BODY
+	};
+	let xhrget4point = new XMLHttpRequest();
+    xhrget4point.open("POST", url, true);
+	xhrget4point.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	xhrget4point.timeout = 40000;//40秒超时
+	xhrget4point.ontimeout = function(){
+    		get4pointres.innerHTML = '连接超时';
+    	};
+    	xhrget4point.onerror = function(){
+    		get4pointres.innerHTML = '无法发送数据到web服务器';
+    	};
+    	xhrget4point.onload = function(){
+    		if(xhrget4point.status === 200){
+    		canvasTOP.innerHTML = "";//清空原有的打卡点
+    		    //把响应的json转换
+    		    point4 = JSON.parse(xhrget4point.responseText);
+    		    get4pointres.innerHTML = point4.msg;
+    		    if(point4.code == 1){//成功获取的打卡点坐标
+    		        for(i in point4.data){//遍历打卡点
+                        let pointL = point4.data[i];
+                        let pointXY = calLtoXY(pointL.pointLong, pointL.pointLat);
+						pointXY.x -= 10;
+						pointXY.y -= 20; 
+						//<image id="testimg" th:src="@{/res/local_br.png}" src="../static/res/local_br.png" width="20px"></image>
+						//设置打卡点图片
+//						console.log("点位:"+pointXY.x, pointXY.y);
+						canvasTOP.innerHTML += '<image th:src="@{/res/local_br.png}" src="/res/local_br.png" class="the_point" style="left:'+pointXY.x+'px;top:'+pointXY.y+'px; width:20px" ></image>';
+                    }
+    		    }
+    		    console.log(point4);
+    		}else{
+    			get4pointres.innerHTML = 'Err:'+xhrget4point.status;
+    		}
+    	};
+    	xhrget4point.onabort = function(){
+    		get4pointres.innerHTML = '请求被取消';
+    	}
+    	xhrget4point.send(JSON.stringify(params));
+
+    console.log("get4point");
 }
 
 
@@ -210,7 +311,8 @@ document.getElementById("subdata").onclick = function(){
 		"BODY": jsonObj
 	};
 
-	//网络请求
+
+	//网络请求,提交跑步信息
 	ResTe.innerHTML += '<div class="res_n">准备提交数据</div>'
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", tourl, true);

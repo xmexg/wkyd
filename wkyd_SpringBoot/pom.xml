@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.mexvina</groupId>
 	<artifactId>wkyd</artifactId>
-	<version>wsb0.0.3-apk1.0</version>
+	<version>wsb0.0.3-apk1.0_r2</version>
 	<name>wkyd</name>
 	<description>潍科运动自动运动SpringBoot服务端</description>
 	<properties>

@@ -22,6 +22,8 @@ public class Api {
 
         Map<String, String> head = JSON.parseObject(JSON.toJSONString(runInfo.get("HEAD")), new TypeReference<Map<String, String>>() {});
         String body = JSON.toJSONString(runInfo.get("BODY"));
+        
+        System.out.println("flag");
 
         String res = netWork.sendPost2("http://sports.wfust.edu.cn/api/run/addRunInfo?salt="+salt+"&sign="+sign, head, body);
         return res;

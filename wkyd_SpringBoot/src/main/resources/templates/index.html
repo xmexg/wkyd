@@ -11,7 +11,7 @@
 	<div id="content">
 		<h1>wk运动</h1>
 		<text id="introduce">编辑如下信息,自动体育运动</text>
-		<text id="show">该网站目前免费且不会保留任何用户的任何数据,所有数据均由学校api获取得到<br>网站开发者正在考虑购买:<a href="https://www.amazon.cn/dp/B0BFXKSFNT/ref=sr_1_1">Flipper Zero（FLP-ZW-R04）亚马逊</a>&nbsp;<a href="https://item.taobao.com/item.htm?id=682905108733">Flipper Zero 淘宝</a><br><a href="https://github.com/xmexg/wkyd">加入程序建设:https://github.com/xmexg/wkyd</a></text>
+		<text id="show">该网站免费且不会保留任何用户的任何数据,所有数据均由学校api获取得到<br>网站开发者正在考虑购买:<a href="https://www.amazon.cn/dp/B0BFXKSFNT/ref=sr_1_1">Flipper Zero（FLP-ZW-R04）亚马逊</a>&nbsp;<a href="https://item.taobao.com/item.htm?id=682905108733">Flipper Zero 淘宝</a><br><a href="https://github.com/xmexg/wkyd">加入程序建设:https://github.com/xmexg/wkyd</a></text>
 		<text id="note">请注意,该程序没有编写任何数据合理性检验的代码,你可以把信息编辑成任何你想要的样子,包括但不限于:
 			<ul>
 				<li>无地图提交或把1cm的地图路线说成3km的长度</li>
@@ -26,7 +26,7 @@
 			<image th:src="@{/res/Flipper.png}" src="../static/res/Flipper.png" id="sponsorimg" height="100%"></image>
 			<div id="sponsor_info">
 				<h2>赞助开发者</h2>
-				<p id="tip">该网站目前免费,你可以点击下方按钮跳过赞助直接进行校园运动<br>如果开发者长时间未收到赞助,会付费提供校园运动服务<br>赞助时,请备注你的学号,开发者会做记录</p>
+				<p id="tip">该网站免费,你可以点击下方按钮跳过赞助直接进行校园运动<br>将二维码保存并发送给自己,在聊天界面扫码即可赞助<br>赞助时,请备注你的学号,开发者会做记录<br><br>开发者只收到极少的赞助,开发者正在考虑将服务器用于其他用途,或许在不久的未来,该服务器将只为熟人提供免费服务,不为陌生人提供服务,减小该程序占用的系统资源</p>
 				<div id="sponsorbtn">
 					<button id="sponsorbtn1" onclick="sponsorbtn1()" style="font-size: 3em;">我已赞助开发者</button>
 					<button id="sponsorbtn2" onclick="sponsorbtn2()">下次一定</button>
@@ -84,4 +84,7 @@
 </body>
 
 	<script th:src="@{/js/index.js}" src="../static/js/index.js" type="text/javascript" defer></script>
+	<script type="text/javascript">
+		alert("开发者只收到极少的赞助\n开发者正在考虑将服务器用于其他用途\n或许在不久的未来,该服务器将只为熟人提供免费服务,不为陌生人提供服务,减小该程序占用的系统资源");
+	</script>
 </html>

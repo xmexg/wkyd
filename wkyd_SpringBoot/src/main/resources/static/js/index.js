@@ -29,8 +29,6 @@ var GeoW = 1250;//地图地理宽度(cm)
 var GeoPixel = GeoW/canvasWidth;//地图像素点长度
 
 //页面元素
-let sponsor = document.getElementById("sponsor");//赞助
-let TheForm = document.getElementById("TheForm");//表格
 let mapinfod1_1 = document.getElementById("mcdid1_1");//节点总数
 let mapinfod1_2 = document.getElementById("mcdid1_2");//节点记录数量
 let mapinfod2 = document.getElementById("mcdid2");
@@ -38,7 +36,15 @@ let ResTe = document.getElementById("res");
 let saltbut = document.getElementById("saltredo");
 let get4pointres = document.getElementById("get4pointres");//获取打卡点的返回信息
 let canvasTOP = document.getElementById("canvasTOP");//画板顶层
-
+let ostype = document.getElementById("ostype");//操作系统类型
+let version = document.getElementById("version");//系统版本
+let phone = document.getElementById("phone");//系统型号
+let osversion = document.getElementById("OsVersion");//苹果额外的系统版本
+let useragent = document.getElementById("useragent");//useragent
+let totalGeoLength = document.getElementById("totalGeoLength");//路线长度
+let totalTimeLength = document.getElementById("totalTimeLength");//路线时间
+let totalGeoLengthLock = document.getElementById("totalGeoLengthLock");//路线长度锁
+let totalTimeLengthLock = document.getElementById("totalTimeLengthLock");//路线时间锁
 
 //赞助按钮
 function sponsorbtn1(){
@@ -49,7 +55,6 @@ function sponsorbtn2(){
     sponsor.style.display = "none";
     TheForm.style.display = "flex";
 }
-
 
 //随机生成8个字符的salt,包含小写字母加数字
 function randomSalt(){
@@ -75,13 +80,16 @@ function getmd5(salt) {
 }
 
 
-//监听salt刷新按钮
-saltbut.onclick = function(){
-//    saltbut.style.backgroundColor = "rgb(112, 72, 232)";
+//设置salt和sign的值
+function setsaltsign(){
 	let randomtext = randomSalt();
 	document.getElementById("salt").value = randomtext;
 	document.getElementById("sign").value = getmd5(randomtext);
 }
+
+//监听salt刷新按钮
+saltbut.onclick = setsaltsign();
+
 
 //salt内容改变时
 function saltchange(){
@@ -90,7 +98,47 @@ function saltchange(){
 }
 
 
-//设备类型识别
+//设备类型识别,以后开发
+function setMyPhone(){
+	var userAgent = window.navigator.userAgent;
+
+	// 解析设备类型
+	var isAndroid = /Android/.test(userAgent);
+	var isIOS = /\b(iPhone|iP[ao]d)/.test(userAgent);
+	var isPC = !isAndroid && !isIOS;
+
+	if (isAndroid) {
+		// 解析 Android 设备型号和版本号
+		var androidModel = /Android\s.*;\s([^;]+)\sBuild/.exec(userAgent);
+		var androidVersion = /Android\s([\d\.]+)/.exec(userAgent);
+		ostype.value = "Android";
+		version.value = androidVersion[1];
+		phone.value = "Android " + androidModel[1];
+		console.log("设备类型：Android");
+	  	console.log("Android 型号：" + androidModel[1]);
+	  	console.log("Android 版本号：" + androidVersion[1]);
+	} else {
+	    //不做任何事
+	}
+
+}
+
+
+//监听路线长度锁
+totalGeoLengthLock.onclick = function(){
+    totalGeoLength.disabled = totalGeoLength.disabled ? false : true;
+    if(totalGeoLength.disabled){
+        totalGeoLength.value = null;
+    }
+}
+
+//监听路线时间锁
+totalTimeLengthLock.onclick = function(){
+    totalTimeLength.disabled = totalTimeLength.disabled ? false : true;
+    if(totalTimeLength.disabled){
+        totalTimeLength.value = null;
+    }
+}
 
 //监听节点间隔改变时
 function nodespacechange(){
@@ -219,11 +267,24 @@ document.getElementById("get4point").onclick = function(){
     }
     let url = "/api/semester/queryPoint?salt="+document.getElementById("salt").value+'&sign='+document.getElementById("sign").value;
     let HEAD = {//服务器要设置的请求头信息
-		"X-Re-Os": document.getElementById("ostype").value,
-		"X-Re-Version": document.getElementById("version").value,
-		"X-Re-Device": document.getElementById("phone").value,
-		"User-Agent": document.getElementById("useragent").value
+		"X-Re-Os": ostype.value,
+		"X-Re-Version": version.value,
+		"X-Re-Device": phone.value,
+		"User-Agent": useragent.value
 	};
+	//安卓手机设置UA
+	if(ostype.value == "android"){
+	    HEAD["User-Agent"] = "okhttp/4.5.0";
+	}
+	//苹果手机设置UA
+	if(ostype.value == "iOS"){
+	    HEAD["User-Agent"] = "RunWay/1.0.2 (iPhone; iOS "+osversion.value+"; Scale/3.00)";
+	}
+	//如果是iOS,HEAD里需要额外设置"X-Re-OsVersion"
+	if(ostype.value == "iOS"){
+	    console.log("iOS");
+	    HEAD["X-Re-OsVersion"] = osversion.value;
+	}
 	let BODY = {
 	    "campus": document.getElementById("campus").value,
 	    "pointLat": startpoint[1],
@@ -255,7 +316,7 @@ document.getElementById("get4point").onclick = function(){
                         let pointL = point4.data[i];
                         let pointXY = calLtoXY(pointL.pointLong, pointL.pointLat);
 						pointXY.x -= 10;
-						pointXY.y -= 20; 
+						pointXY.y -= 20;
 						//<image id="testimg" th:src="@{/res/local_br.png}" src="../static/res/local_br.png" width="20px"></image>
 						//设置打卡点图片
 //						console.log("点位:"+pointXY.x, pointXY.y);
@@ -278,6 +339,17 @@ document.getElementById("get4point").onclick = function(){
 
 //点击提交按钮后
 document.getElementById("subdata").onclick = function(){
+    //运动路程处于锁定状态时,自动获取
+    if(totalGeoLength.disabled == true){
+        totalGeoLength.value = Math.floor(roadGeolen);
+    }
+    //运动时间处于锁定状态时,自动获取
+    if(totalTimeLength.disabled == true){
+        const startTime = new Date(document.getElementById("beginTime").value);
+        const endTime = new Date(document.getElementById("endTime").value);
+        const timeDiff = Math.abs(endTime.getTime() - startTime.getTime());
+        totalTimeLength.value = Math.floor(timeDiff / 1000);
+    }
 	jsonObj.beginTime = document.getElementById("beginTime").value.replace("T", " ");
 	jsonObj.campus = document.getElementById("campus").value;
 	jsonObj.endTime = document.getElementById("endTime").value.replace("T", " ");
@@ -294,17 +366,29 @@ document.getElementById("subdata").onclick = function(){
             jsonObj.markList = "";
             break;
 	}
-	jsonObj.totalLangth = document.getElementById("totalGeoLength").value;
-	jsonObj.totalTime = document.getElementById("totalTimeLength").value;
+	jsonObj.totalLength = totalGeoLength.value;
+	jsonObj.totalTime = totalTimeLength.value;
 	jsonObj.userCode = document.getElementById("id").value;
 
 	let tourl = '/api/run/addRunInfo?salt='+document.getElementById("salt").value+'&sign='+document.getElementById("sign").value;
 	//不允许设置"X-Re-Os"等自定义请求头,先把数据发送到服务器,再由服务器发送请求
 	let HEAD = {//服务器要设置的请求头信息
-		"X-Re-Os": document.getElementById("ostype").value,
-		"X-Re-Version": document.getElementById("version").value,
-		"X-Re-Device": document.getElementById("phone").value,
-		"User-Agent": document.getElementById("useragent").value
+		"X-Re-Os": ostype.value,
+		"X-Re-Version": version.value,
+		"X-Re-Device": phone.value,
+		"User-Agent": useragent.value
+	}
+	//安卓手机设置UA
+	if(ostype.value == "android"){
+	    HEAD["User-Agent"] = "okhttp/4.5.0";
+	}
+	//苹果手机设置UA
+	if(ostype.value == "iOS"){
+	    HEAD["User-Agent"] = "RunWay/1.0.2 (iPhone; iOS "+osversion.value+"; Scale/3.00)";
+	}
+	//如果是iOS,HEAD里需要额外设置"X-Re-OsVersion"
+	if(ostype.value == "iOS"){
+	    HEAD["X-Re-OsVersion"] = osversion.value;
 	}
 	let params = {
 		"HEAD": HEAD,
@@ -339,3 +423,10 @@ document.getElementById("subdata").onclick = function(){
 
 }
 
+
+
+//页面加载完毕后立即执行的函数
+window.onload = function(){
+	setsaltsign();//设置salt和sign的值
+
+}

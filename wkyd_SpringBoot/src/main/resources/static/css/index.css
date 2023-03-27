@@ -148,7 +148,7 @@ h1{
 	color: #f5222d;
 }
 
-#saltredo{
+.forminputimg{
 	height: 30px;
 	width: 30px;
 	border-radius: 20px;
@@ -156,7 +156,7 @@ h1{
 	transition: 0.5s;
 }
 
-#saltredo:hover{
+.forminputimg:hover{
 	background: rgba(255, 255, 255, 0.7);
 }
 

@@ -6,6 +6,7 @@
 	<title>wk运动</title>
 	<link rel="stylesheet" th:href="@{/css/index.css}" href="../static/css/index.css" type="text/css"/>
 	<script th:src="@{/js/crypto-js.min.js}" src="../static/js/crypto-js.min.js" type="text/javascript"></script>
+	<script th:src="@{/js/vue.global.js}" src="../static/js/vue.global.js" type="text/javascript"></script>
 </head>
 <body>
 	<div id="content">
@@ -45,6 +46,23 @@
 				<p>注意大小写,iOS是苹果,ios什么也不是;Xiaomi是小米,xiaomi什么也不是</p>
 				<div class="fd">系统类型:<input class="H block" type="text" name="ostype" id="ostype" placeholder="系统类型(android/iOS)" required value="android"></div>
 				<div class="fd">版本号:<input class="H block" type="text" name="version" id="version" placeholder="安卓:系统版本号13/苹果:软件版本号1.0.2" required></div>
+				<div id="appbrand" class="fd">手机品牌:
+					<div id="appbranddiv">
+						<div id="appbrandselectdiv">
+							<select v-model="selectedAndroidBrand" class="selectedBrand" id="selectedAndroidBrand">
+								<option value="default">选择安卓品牌</option>
+								<optgroup v-for="(subBrands, brandind) in androidbrands" :label="brandind">
+									<option v-for="subBrand in subBrands" :value="subBrand">{{ subBrand }}</option>
+								</optgroup>
+							</select>
+							<select v-model="selectediPhoneBrand" class="selectedBrand" id="selectediPhoneBrand">
+								<option value="default">选择苹果品牌</option>
+								<option v-for="(subBrands, brandind) in iPhonebrands" :value="subBrands.brand">{{ subBrands.name }}</option>
+							</select>
+						</div>
+						<input v-model="selectedBrandInput" class="H block" type="text" placeholder="手机品牌(Xiaomi/iPhone)" id="selectedBrandInput" disabled/>
+					</div>
+				</div>
 				<div class="fd">手机型号:<input class="H block" type="text" name="phone" id="phone" placeholder="(Xiaomi M2011K2C/iPhone14,7)" required value="Xiaomi M2011K2C"></div>
 				<div class="fd">苹果:<input class="H block" type="text" name="OsVersion" id="OsVersion" placeholder="苹果需额外填写系统版本号(16.3.1)"></div>
 				<div class="fd">UA:<input class="H D block" type="text" name="useragent" id="useragent" placeholder="请求头(okhttp/4.5.0)" required value="okhttp/4.5.0" disabled></div>
@@ -89,4 +107,87 @@
 	<script type="text/javascript">
 		alert("开发者只收到极少的赞助\n开发者正在考虑将服务器用于其他用途\n或许在不久的未来,该服务器将只为熟人提供免费服务,不为陌生人提供服务,减小该程序占用的系统资源");
 	</script>
+
+
+<script>
+    const { createApp } = Vue
+
+    const appBrand = createApp({
+    data() {
+        return{
+            androidbrands: {
+                Samsung: ['Samsung'],
+                HUAWEI: ['HUAWEI', 'HONER'],
+                Xiaomi: ['Xiaomi', 'Redmi', 'POCO'],
+                OPPO: ['OPPO', 'Realme'],
+                Vivo: ['Vivo', 'iQOO'],
+                OnePlus: ['OnePlus'],
+                Sony: ['Sony'],
+                LG: ['LG'],
+                HTC: ['HTC'],
+                Lenovo: ['Lenovo', 'Motorola'],
+                Nokia: ['Nokia'],
+                ASUS: ['ASUS', 'ROG'],
+                Google: ['Google', 'Pixel'],
+                ZTE: ['ZTE', 'Nubia'],
+                Meizu: ['Meizu'],
+                Coolpad: ['Coolpad'],
+                Gionee: ['Gionee'],
+                LeEco: ['LeEco'],
+                TCL: ['TCL', 'Alcatel'],
+                Sharp: ['Sharp'],
+                Panasonic: ['Panasonic'],
+                Blackberry: ['Blackberry'],
+                Umidigi: ['Umidigi'],
+                Elephone: ['Elephone'],
+                Doogee: ['Doogee'],
+                Vernee: ['Vernee'],
+                Oukitel: ['Oukitel'],
+                Cubot: ['Cubot'],
+                Homtom: ['Homtom'],
+                Bluboo: ['Bluboo'],
+                Vkworld: ['Vkworld'],
+                Gretel: ['Gretel'],
+                Ulefone: ['Ulefone'],
+            },
+            iPhonebrands: [
+                {name: "iPhone 6", brand: "iPhone7,2"},
+                {name: "iPhone 6 Plus", brand: "iPhone7,1"},
+                {name: "iPhone 6s", brand: "iPhone8,1"},
+                {name: "iPhone 6s Plus", brand: "iPhone8,2"},
+                {name: "iPhone SE", brand: "iPhone8,4"},
+                {name: "iPhone 7", brand: "iPhone9,1"},
+                {name: "iPhone 7 Plus", brand: "iPhone9,2"},
+                {name: "iPhone 8", brand: "iPhone10,1"},
+                {name: "iPhone 8 Plus", brand: "iPhone10,2"},
+                {name: "iPhone X", brand: "iPhone10,3"},
+                {name: "iPhone XS", brand: "iPhone11,2"},
+                {name: "iPhone XS Max", brand: "iPhone11,4"},
+                {name: "iPhone XR", brand: "iPhone11,8"},
+                {name: "iPhone 11", brand: "iPhone12,1"},
+                {name: "iPhone 11 Pro", brand: "iPhone12,3"},
+                {name: "iPhone 11 Pro Max", brand: "iPhone12,5"},
+                {name: "iPhone SE (第 2 代)", brand: "iPhone12,8"},
+                {name: "iPhone 12 mini", brand: "iPhone13,1"},
+                {name: "iPhone 12", brand: "iPhone13,2"},
+                {name: "iPhone 12 Pro", brand: "iPhone13,3"},
+                {name: "iPhone 12 Pro Max", brand: "iPhone13,4"},
+                {name: "iPhone 13 mini", brand: "iPhone14,4"},
+                {name: "iPhone 13", brand: "iPhone14,5"},
+                {name: "iPhone 13 Pro", brand: "iPhone14,2"},
+                {name: "iPhone 13 Pro Max", brand: "iPhone14,3"},
+                {name: "iPhone SE (第 3 代)", brand: "iPhone14,6"},
+                {name: "iPhone 14", brand: "iPhone14,7"},
+                {name: "iPhone 14 Plus", brand: "iPhone14,8"},
+                {name: "iPhone 14 Pro", brand: "iPhone15,2"},
+                {name: "iPhone 14 Pro Max", brand: "iPhone15,3"}
+            ],
+            selectedAndroidBrand: "default",
+            selectediPhoneBrand: "default",
+            selectedBrandInput: ""
+        }
+    }
+    })
+    appBrand.mount("#appbrand")
+</script>
 </html>

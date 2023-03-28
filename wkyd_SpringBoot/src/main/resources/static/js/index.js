@@ -27,6 +27,10 @@ var RatioX = OriginW/canvasWidth;//经度比例
 var RatioY = OriginH/canvasHeight;//纬度比例
 var GeoW = 1250;//地图地理宽度(cm)
 var GeoPixel = GeoW/canvasWidth;//地图像素点长度
+var APPversion = "1.0.2";//跑步软件版本号,苹果系统填写此参数,安卓系统不填写此参数
+var UAversion = "";//通过UA获取到的系统版本,安卓系统应该填写此参数,苹果系统不填写此参数填写跑步软件的版本号
+var UAOsModel = "";//安卓系统用于填写手机型号的一部分参数,这里是通过UA获取的,还有一部分是用户通过下拉框选择的
+var UAOsVersion = "";//通过UA获取到的系统版本,苹果系统专有的参数
 
 //页面元素
 let mapinfod1_1 = document.getElementById("mcdid1_1");//节点总数
@@ -45,6 +49,9 @@ let totalGeoLength = document.getElementById("totalGeoLength");//路线长度
 let totalTimeLength = document.getElementById("totalTimeLength");//路线时间
 let totalGeoLengthLock = document.getElementById("totalGeoLengthLock");//路线长度锁
 let totalTimeLengthLock = document.getElementById("totalTimeLengthLock");//路线时间锁
+let selectedAndroidBrand = document.getElementById("selectedAndroidBrand");//安卓品牌下拉列表
+let selectediPhoneBrand  = document.getElementById("selectediPhoneBrand");//苹果品牌下拉列表
+let selectedBrandInput = document.getElementById("selectedBrandInput");//品牌输入框
 
 //赞助按钮
 function sponsorbtn1(){
@@ -97,10 +104,31 @@ function saltchange(){
 	document.getElementById("sign").value = getmd5(randomtext);
 }
 
+//监听苹果品牌选择框改变
+selectediPhoneBrand.onchange = function(){
+	selectedAndroidBrand.value = "";
+	ostype.value = "iOS";//系统类型
+	version.value = APPversion;//苹果的版本号是固定的,是跑步软件的版本号
+	selectedBrandInput.value = selectediPhoneBrand.value;//手机品牌暂存框,好像也没什么用
+	phone.value = selectediPhoneBrand.value;//手机型号
+	useragent.value = "RunWay/"+APPversion+" (iPhone; iOS "+ selectediPhoneBrand.value +"; Scale/3.00)";
+}
 
-//设备类型识别,以后开发
+//监听安卓品牌选择框改变
+selectedAndroidBrand.onchange = function(){
+	selectediPhoneBrand.value = "";
+	ostype.value = "android";//系统类型
+	version.value = UAversion;//安卓的版本号是通过UA获取的
+	selectedBrandInput.value = selectedAndroidBrand.value;//手机品牌暂存框,好像也没什么用
+	phone.value = selectedAndroidBrand.value + " " + UAOsModel;//手机型号
+	osversion.value = "";//这是苹果系统额外的参数,如果选安卓,此参数删除
+	useragent.value = "okhttp/4.5.0";
+}
+
+//设备类型识别
 function setMyPhone(){
 	var userAgent = window.navigator.userAgent;
+	console.log(userAgent);
 
 	// 解析设备类型
 	var isAndroid = /Android/.test(userAgent);
@@ -111,14 +139,35 @@ function setMyPhone(){
 		// 解析 Android 设备型号和版本号
 		var androidModel = /Android\s.*;\s([^;]+)\sBuild/.exec(userAgent);
 		var androidVersion = /Android\s([\d\.]+)/.exec(userAgent);
-		ostype.value = "Android";
+		ostype.value = "android";
+		UAversion = androidVersion[1];//安卓的版本号,是通过UA获取的
 		version.value = androidVersion[1];
-		phone.value = "Android " + androidModel[1];
-		console.log("设备类型：Android");
+		UAOsModel = androidModel[1];
+		console.log("设备类型: Android");
 	  	console.log("Android 型号：" + androidModel[1]);
 	  	console.log("Android 版本号：" + androidVersion[1]);
+	} else if (isIOS) {
+		// 解析 iOS 设备型号和版本号
+		UAOsVersion = /OS (\d+)_(\d+)_?(\d+)?/.exec(userAgent);//
+		// UAOsVersion = (/OS\s([\d_]+)/.exec(userAgent));//有问题,用不到,先留着
+		//把UAOsVersion里的_替换成.
+		UAOsVersion = UAOsVersion[1]+"."+UAOsVersion[2]+"."+UAOsVersion[3];
+		ostype.value = "iOS";
+		version.value = APPversion;//苹果这里应该填写跑步软件的版本号
+		osversion.value = UAOsVersion;//苹果的系统版本号写在这里
+		// phone.value = "iPhone " + iOSModel[1];//无法通过UA获取该值,不应该由UA填写,要让用户选择
+		console.log("设备类型: iOS");
+		// console.log("iOS 型号：" + iOSModel[1]);
+		console.log("iOS 版本号：" + UAOsVersion);
+		var iOSDevice = /(iPhone|iP[ao]d)/.exec(userAgent);
+
+		// var iOSVersion = /OS (\d+)_(\d+)_?(\d+)?/.exec(userAgent);
+		// let version = iOSVersion[1] + "." + iOSVersion[2] + "." + iOSVersion[3];
+		// console.log("设备类型：iOS");
+		// console.log("iOS 设备：" + iOSDevice[1]);
+		// console.log("iOS 版本号：" + version);
 	} else {
-	    //不做任何事
+		//是PC,不做任何事
 	}
 
 }
@@ -272,14 +321,14 @@ document.getElementById("get4point").onclick = function(){
 		"X-Re-Device": phone.value,
 		"User-Agent": useragent.value
 	};
-	//安卓手机设置UA
-	if(ostype.value == "android"){
-	    HEAD["User-Agent"] = "okhttp/4.5.0";
-	}
-	//苹果手机设置UA
-	if(ostype.value == "iOS"){
-	    HEAD["User-Agent"] = "RunWay/1.0.2 (iPhone; iOS "+osversion.value+"; Scale/3.00)";
-	}
+//	//安卓手机设置UA
+//	if(ostype.value == "android"){
+//	    HEAD["User-Agent"] = "okhttp/4.5.0";
+//	}
+//	//苹果手机设置UA
+//	if(ostype.value == "iOS"){
+//	    HEAD["User-Agent"] = "RunWay/1.0.2 (iPhone; iOS "+osversion.value+"; Scale/3.00)";
+//	}
 	//如果是iOS,HEAD里需要额外设置"X-Re-OsVersion"
 	if(ostype.value == "iOS"){
 	    console.log("iOS");
@@ -379,13 +428,13 @@ document.getElementById("subdata").onclick = function(){
 		"User-Agent": useragent.value
 	}
 	//安卓手机设置UA
-	if(ostype.value == "android"){
-	    HEAD["User-Agent"] = "okhttp/4.5.0";
-	}
-	//苹果手机设置UA
-	if(ostype.value == "iOS"){
-	    HEAD["User-Agent"] = "RunWay/1.0.2 (iPhone; iOS "+osversion.value+"; Scale/3.00)";
-	}
+//	if(ostype.value == "android"){
+//	    HEAD["User-Agent"] = "okhttp/4.5.0";
+//	}
+//	//苹果手机设置UA
+//	if(ostype.value == "iOS"){
+//	    HEAD["User-Agent"] = "RunWay/1.0.2 (iPhone; iOS "+osversion.value+"; Scale/3.00)";
+//	}
 	//如果是iOS,HEAD里需要额外设置"X-Re-OsVersion"
 	if(ostype.value == "iOS"){
 	    HEAD["X-Re-OsVersion"] = osversion.value;
@@ -428,5 +477,5 @@ document.getElementById("subdata").onclick = function(){
 //页面加载完毕后立即执行的函数
 window.onload = function(){
 	setsaltsign();//设置salt和sign的值
-
+	setMyPhone();//自动通过UA设置手机型号
 }

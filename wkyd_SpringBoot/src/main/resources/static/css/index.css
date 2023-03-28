@@ -126,6 +126,7 @@ h1{
 	flex-direction: row;
 	align-items: center;
 	margin: 10px;
+	/* background: #9254de; */
 }
 
 .block{
@@ -137,6 +138,29 @@ h1{
 	border-radius: 10px;
 	background: rgba(255, 255, 255, 0.7);
 	
+}
+
+#appbrand{
+	position: relative;
+}
+
+#appbranddiv{
+	position: relative;
+	width: 85%;
+	/* background: #0050b3; */
+}
+
+#appbrandselectdiv{
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	flex-direction: column;
+	height: 100%;
+	left: 10px;
+}
+
+#selectedBrandInput{
+	text-align: right;
 }
 
 .D{

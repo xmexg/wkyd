@@ -24,11 +24,99 @@ body{
 	align-items: center;
 }
 
+#updatainfo{
+	width: 730px;
+	/* height: 450px; */
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: column;
+	background: #FFFFFF;
+	padding: 20px;
+	margin: 20px;
+	border-radius: 20px;
+}
+
+#updatainfonote{
+	font-size: 1.5em;
+	background-image: linear-gradient(135deg, #fa5252, #1e90ff);
+	background-clip: text;
+	-webkit-background-clip: text;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+	color: transparent;
+}
+
+#updatainfonote p{
+	padding: 0;
+	margin: 0;
+}
+
+#updatainfoform{
+	font-size: 1.5em;
+	width: 90%;
+	display: flex;
+	flex-direction: row;
+	position: relative;
+}
+
+#updatainfoformleft{
+	width: 80%;
+}
+
+#updatainfoformleft div{
+	position: relative;
+}
+
+#updatainfoformright{
+	width: 20%;
+	position: relative;
+	left: 5%;
+	border-radius: 10px;
+	background: rgba(234, 236, 238, 0.6);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	transition: 0.5s;
+}
+
+#updatainfoformright:active{
+	background: rgba(85, 87, 89, 0.5);
+}
+
+/* #updatainfoformright:hover{
+	background: rgba(234, 236, 238, 1);
+} */
+
+.orderlabel{
+    position: absolute;
+    left: 0px;
+    bottom: 0em;
+    transition: .5s;
+}
+
+.orderinput{
+	font-size: 1.5em;
+	width: 100%;
+	outline: none;
+	border: none;
+	border-bottom: #000000 solid 1px;
+	padding-top: 1em;
+}
+
+.orderinput:focus ~ .orderlabel,
+.orderinput:valid ~ .orderlabel{
+	bottom: 1.4em;
+	transform: scale(0.7);
+}
+
 #sponsor{
 	width: 850px;
 	height: 450px;
 	position: relative;
-	display: flex;
+	display: none;
 	justify-content: space-between;
 	align-items: center;
 	flex-direction: row;
@@ -98,7 +186,7 @@ h1{
 
 #TheForm{
 	/* width: 100%; */
-	display: none;
+	display: flex;
 	padding: 30px;
 	border-radius: 20px;
 	background: rgba(245, 243, 242, 0.5);

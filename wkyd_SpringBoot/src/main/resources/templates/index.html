@@ -12,8 +12,8 @@
 	<div id="content">
 		<h1>wk运动</h1>
 		<text id="introduce">编辑如下信息,自动体育运动</text>
-		<text id="show">该网站免费且不会保留任何用户的任何数据,所有数据均由学校api获取得到<br>网站开发者正在考虑购买:<a href="https://www.amazon.cn/dp/B0BFXKSFNT/ref=sr_1_1">Flipper Zero（FLP-ZW-R04）亚马逊</a>&nbsp;<a href="https://item.taobao.com/item.htm?id=682905108733">Flipper Zero 淘宝</a><br><a href="https://github.com/xmexg/wkyd">加入程序建设:https://github.com/xmexg/wkyd</a></text>
-		<text id="note">请注意,该程序没有编写任何数据合理性检验的代码,你可以把信息编辑成任何你想要的样子,包括但不限于:
+		<text id="show">此次更新,我们只对受邀用户(熟人与赞助者)服务<br>不过,未受到邀请的成员仍可通过<a href="https://github.com/xmexg/wkyd">源码</a>构建符合自己需求的可执行程序<br>作者早已逆向并分析了跑步全过程,可以保证只要你使用此程序的最新版填写的数据合理,就一定不会被查出来!请放心使用</text>
+			<text id="note">请注意,该程序没有编写任何数据合理性检验的代码,你可以把信息编辑成任何你想要的样子,包括但不限于:
 			<ul>
 				<li>无地图提交或把1cm的地图路线说成3km的长度</li>
 				<li>向学校服务器插入xss,sql恶意代码</li>
@@ -23,10 +23,28 @@
 				<li>...</li>
 			</ul>
 		</text>
+		<div id="updatainfo">
+			<div id="updatainfonote">
+				<p>任何在过去赞助过作者的用户,本学期内均可无限制的继续使用本网站<p>
+				<p>若你在赞助时已经备注学号,可直接进行跑步</p>
+				<p>若你在赞助时没有备注学号,你可在此处填写收款单号和学号,获取使用权限</p>
+			</div>
+			<div id="updatainfoform">
+				<div id="updatainfoformleft">
+					<div><input id="orderOd" class="orderinput" type="number" required><span class="orderlabel">单号/电话:</span></div>
+					<div><input id="orderId" class="orderinput" type="number" required><span class="orderlabel">学号:</span></div>
+				</div>
+				<div id="updatainfoformright">
+					<image src="../static/res/send.svg" th:src="@{/res/send.svg}" width="50%"></image>
+					<span id="updatares"></span>
+				</div>
+			</div>
+		</div>
 		<div id="sponsor">
 			<image th:src="@{/res/Flipper.png}" src="../static/res/Flipper.png" id="sponsorimg" height="100%"></image>
 			<div id="sponsor_info">
 				<h2>赞助开发者</h2>
+				<h2>作者隐藏了网站原来的样子,但保留了一点,现在还是被你找到了</h2>
 				<p id="tip">该网站免费,你可以点击下方按钮跳过赞助直接进行校园运动<br>将二维码保存并发送给自己,在聊天界面扫码即可赞助<br>赞助时,请备注你的学号,开发者会做记录<br><br>开发者只收到极少的赞助,开发者正在考虑将服务器用于其他用途,或许在不久的未来,该服务器将只为熟人提供免费服务,不为陌生人提供服务,减小该程序占用的系统资源</p>
 				<div id="sponsorbtn">
 					<button id="sponsorbtn1" onclick="sponsorbtn1()" style="font-size: 3em;">我已赞助开发者</button>
@@ -38,7 +56,7 @@
 		<div id="TheForm">
 			<!-- 这个form大概率会弃用,先留着 -->
 			<form id="Form" name="usrform"  action="updata" method="post">
-				<div class="fd">salt:<input class="U D block" type="text" name="salt" id="salt" placeholder="salt(8位0-9和a-f,不合规无法提交)" oninput="saltchange()" maxlength="8" ><image th:src="@{/res/redo.png}" src="../static/res/redo.png" id="saltredo" class="forminputimg"></image></div>
+				<div class="fd">salt:<input class="U D block" type="text" name="salt" id="salt" placeholder="salt(8位0-9和a-f,不合规无法提交)" oninput="saltchange()" maxlength="8" ><image th:src="@{/res/redo.png}" src="../static/res/redo.png" id="saltredo" class="forminputimg" onclick="setsaltsign()"></image></div>
 				<div class="fd">sign:<input class="U D block" type="text" name="sign" id="sign" placeholder="访问学校服务器时的sign" disabled></div>
 
 				<div class="fd">学号:<input class="H block" type="text" name="id" id="id" placeholder="学号" th:value="${user_id}" required></div>
@@ -105,7 +123,7 @@
 
 	<script th:src="@{/js/index.js}" src="../static/js/index.js" type="text/javascript" defer></script>
 	<script type="text/javascript">
-		alert("开发者只收到极少的赞助\n开发者正在考虑将服务器用于其他用途\n或许在不久的未来,该服务器将只为熟人提供免费服务,不为陌生人提供服务,减小该程序占用的系统资源");
+		// alert("开发者只收到极少的赞助\n开发者正在考虑将服务器用于其他用途\n或许在不久的未来,该服务器将只为熟人提供免费服务,不为陌生人提供服务,减小该程序占用的系统资源");
 	</script>
 
 

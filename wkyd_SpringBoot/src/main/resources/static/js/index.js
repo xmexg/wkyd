@@ -52,6 +52,13 @@ let totalTimeLengthLock = document.getElementById("totalTimeLengthLock");//路�
 let selectedAndroidBrand = document.getElementById("selectedAndroidBrand");//安卓品牌下拉列表
 let selectediPhoneBrand  = document.getElementById("selectediPhoneBrand");//苹果品牌下拉列表
 let selectedBrandInput = document.getElementById("selectedBrandInput");//品牌输入框
+let updatainfo = document.getElementById("updatainfoformright");//提交订单按钮
+let updatares = document.getElementById("updatares");//提交订单信息后的返回值框
+
+function printlogo(){
+
+	console.log("加入我们:https://github.com/xmexg/wkyd");
+}
 
 //赞助按钮
 function sponsorbtn1(){
@@ -95,7 +102,7 @@ function setsaltsign(){
 }
 
 //监听salt刷新按钮
-saltbut.onclick = setsaltsign();
+saltbut.addEventListener("click",  setsaltsign());
 
 
 //salt内容改变时
@@ -472,10 +479,41 @@ document.getElementById("subdata").onclick = function(){
 
 }
 
-
+//提交订单
+updatainfo.addEventListener("click", function(){
+	let orderOd = document.getElementById("orderOd").value;
+	let orderId = document.getElementById("orderId").value;
+	if(orderOd.length<10 || orderId.length<10){
+		alert("订单信息不正确,请检查");
+		return;
+	}
+	let orderxhr = new XMLHttpRequest();
+	let url = "/webapi/upuser";
+	let orderparams = {"userId":orderId,"userOd":orderOd};
+	orderxhr.open("POST", url, true);
+	orderxhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	orderxhr.timeout = 40000;//40秒超时
+	orderxhr.ontimeout = function(){
+		updatares.innerText = "连接超时";
+	};
+	orderxhr.onerror = function(){
+		updatares.innerText = "无法连接服务器";
+	}
+	orderxhr.onreadystatechange = function() {//Call a function when the state changes.
+		if(orderxhr.readyState == 4 && orderxhr.status == 200) {
+			if(orderxhr.responseText == 0){
+				updatares.innerText = "更新成功";
+			}else{
+				updatares.innerText = "更新失败";
+			}
+		}
+	}
+	orderxhr.send(JSON.stringify(orderparams));
+});
 
 //页面加载完毕后立即执行的函数
 window.onload = function(){
+	printlogo();//打印logo
 	setsaltsign();//设置salt和sign的值
 	setMyPhone();//自动通过UA设置手机型号
 }

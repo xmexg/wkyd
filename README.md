@@ -1,3 +1,6 @@
+# 现状
+作者已弃坑,有想接手后续开发可提出`Issues`或在[Telegram](https://t.me/mge0_0)与我取得联系
+
 # wkyd
 wk运动app的抓包笔记与利用思路
 ```
